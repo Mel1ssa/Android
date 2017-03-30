@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Seemy</string>
+    <string name="email">Email</string>
+    <string name="psw">Mot de Passe</string>
+    <string name="logIn">Se connecter</string>
+    <string name="signIn">Pas encre de compte ?\n Creéz-en un !</string>
+    <string name="title_activity_signup">SignupActivity</string>
+    <string name="name">Nom</string>
+    <string name="prename">Prénom</string>
+    <string name="psw2">Confimation du  mot de passe</string>
+    <string name="creerCompte">Créer</string>
+    <string name="dejamembre">Déjà Membre ?</string>
+    <string name="age">Age</string>
+    <string name="rad_option1">Femme\t\t</string>
+    <string name="rad_option2">Homme</string>
+</resources>
