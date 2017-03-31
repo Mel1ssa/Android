@@ -4,4 +4,18 @@
     <string name="psw">Password</string>
     <string name="logIn">Login</string>
     <string name="signIn">No account yet?\n Create one !</string>
+    <string name="name">Last Name</string>
+    <string name="prename">First Name</string>
+    <string name="psw2">Confirm Passworde</string>
+    <string name="creerCompte">Create</string>
+    <string name="dejamembre">Already Member ?</string>
+    <string name="age">Age</string>
+    <string name="rad_option1">Woman\t\t</string>
+    <string name="rad_option2">Man</string>
+    <string name="pseudo">Login</string>
+    <string name="auth">Authentication...</string>
+    <string name="inconnu">Unknown User</string>
+    <string name="echec">Failed Login</string>
+    <string name="supper">Great !</string>
+    <string name="errorValue">alphanumeric only (4-20)</string>
 </resources>

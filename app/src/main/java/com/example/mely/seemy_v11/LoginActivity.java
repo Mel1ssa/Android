@@ -1,7 +1,9 @@
 package com.example.mely.seemy_v11;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import java.util.concurrent.ExecutionException;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -19,9 +21,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    //bouh
-    // je ne sais pas ce que ça fait !
-    @Bind(R.id.input_email) EditText _emailText;
+   // equivalent a (button)findViewById(bouton)
+    @Bind(R.id.input_pseudo) EditText _pseudoText;
     @Bind(R.id.input_password) EditText _passwordText;
     @Bind(R.id.btn_login) Button _loginButton;
     @Bind(R.id.link_signup) TextView _signupLink;
@@ -30,12 +31,16 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ButterKnife.bind(this); // ?
+        ButterKnife.bind(this);
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                login();
+                try {
+                    login();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -47,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
                 finish();
-              //  overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
     }
@@ -55,44 +59,49 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    public void login() {
-        Log.d(TAG, "Login");
-
-        if (!validate()) {
+    public void login() throws ExecutionException, InterruptedException {
+       if (!validate()) {
             onLoginFailed();
             return;
         }
-        Toast.makeText(getBaseContext(), "ça arrive a Login validate OK", Toast.LENGTH_LONG).show();
+
         _loginButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme_Dark_Dialog);
+        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
+        progressDialog.setMessage(getText(R.string.auth));
         progressDialog.show();
 
-        String email = _emailText.getText().toString();
+        String login = _pseudoText.getText().toString();
         String password = _passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
+         AsyncTask AT=  new LoginBackgroundActivity(this).execute(login,password);
+        String S = (String) AT.get();
+        if(Integer.parseInt(S)==1){
+
+            Toast.makeText(getBaseContext(), getText(R.string.supper), Toast.LENGTH_LONG).show();// a supprimer
+        }
+
+        else
+            Toast.makeText(getBaseContext(), getText(R.string.inconnu), Toast.LENGTH_LONG).show();
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
                         onLoginSuccess();
                         // onLoginFailed();
                         progressDialog.dismiss();
                     }
                 }, 3000);
     }
-    public void onLoginSuccess() { Toast.makeText(getBaseContext(), "ça arrive a Loginsuccess", Toast.LENGTH_LONG).show();
+    public void onLoginSuccess() {
         _loginButton.setEnabled(true);
         // TODO : intent pour rentrer dans l'appli
     }
 
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), R.string.echec, Toast.LENGTH_LONG).show();
 
         _loginButton.setEnabled(true);
     }
@@ -100,18 +109,18 @@ public class LoginActivity extends AppCompatActivity {
     public boolean validate() {
         boolean valid = true;
 
-        String email = _emailText.getText().toString();
+        String login = _pseudoText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("enter a valid email address");
+        if (login.isEmpty() || login.length() < 4 || login.length() > 20) {
+            _pseudoText.setError(getText(R.string.errorValue));
             valid = false;
         } else {
-            _emailText.setError(null);
+            _pseudoText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 20) {
-            _passwordText.setError("between 4 and 20 alphanumeric characters");
+            _passwordText.setError(getText(R.string.errorValue));
             valid = false;
         } else {
             _passwordText.setError(null);

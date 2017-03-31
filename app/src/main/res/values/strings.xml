@@ -7,10 +7,16 @@
     <string name="title_activity_signup">SignupActivity</string>
     <string name="name">Nom</string>
     <string name="prename">Prénom</string>
-    <string name="psw2">Confimation du  mot de passe</string>
+    <string name="psw2">Confirmation du  mot de passe</string>
     <string name="creerCompte">Créer</string>
     <string name="dejamembre">Déjà Membre ?</string>
     <string name="age">Age</string>
     <string name="rad_option1">Femme\t\t</string>
     <string name="rad_option2">Homme</string>
+    <string name="pseudo">Pseudo</string>
+    <string name="auth">Authentification...</string>
+    <string name="inconnu">Utilisateur Inconnu</string>
+    <string name="echec">Echec authentification</string>
+    <string name="supper">Super !</string>
+    <string name="errorValue">alphanumerique seulement(4-20)</string>
 </resources>
