@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">Seemy_v1.1</string>
-    <string name="email">Email</string>
-    <string name="psw">Password</string>
-    <string name="logIn">Login</string>
-    <string name="signIn">No account yet?\n Create one !</string>
-</resources>
