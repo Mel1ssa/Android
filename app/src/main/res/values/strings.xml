@@ -20,4 +20,10 @@
     <string name="supper">Super !</string>
     <string name="errorValue">alphanumerique seulement(4-20)</string>
     <string name="existe">Ce pseudo existe</string>
+    <string name="title_activity_main_user">MainUserActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

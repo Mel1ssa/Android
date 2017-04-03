@@ -82,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
 
             Toast.makeText(getBaseContext(), getText(R.string.supper), Toast.LENGTH_LONG).show();// a supprimer
             // intent vers profil
+
         }
 
         else

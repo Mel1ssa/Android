@@ -151,7 +151,7 @@
             android:layout_gravity="center_horizontal"
             android:text="@string/creerCompte"/>
 
-       <!-- <TextView android:id="@+id/link_login"
+       <TextView android:id="@+id/link_login"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -160,7 +160,7 @@
             android:text="@string/dejamembre"
             android:gravity="center"
             android:textStyle="bold"
-            android:textSize="20dip"/>-->
+            android:textSize="20dip"/>
 
     </LinearLayout>
 </ScrollView>
