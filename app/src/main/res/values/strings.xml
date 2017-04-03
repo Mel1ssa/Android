@@ -19,4 +19,5 @@
     <string name="echec">Echec authentification</string>
     <string name="supper">Super !</string>
     <string name="errorValue">alphanumerique seulement(4-20)</string>
+    <string name="existe">Ce pseudo existe</string>
 </resources>

@@ -9,6 +9,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/gradient"
         android:paddingTop="56dp"
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
@@ -27,13 +28,15 @@
             android:layout_marginBottom="8dp"
             android:layout_gravity="center_horizontal">
             <EditText android:id="@+id/input_name"
+                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:hint="@string/name" />
+                android:textStyle="bold"
+                android:hint="@string/pseudo" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Name Label -->
+        <!-- Prenom Label
         <android.support.design.widget.TextInputLayout
             android:layout_width="280dp"
             android:layout_height="wrap_content"
@@ -41,11 +44,12 @@
             android:layout_marginBottom="8dp"
             android:layout_gravity="center_horizontal">
             <EditText android:id="@+id/input_prename"
+                android:textSize="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:hint="@string/prename" />
-        </android.support.design.widget.TextInputLayout>
+        </android.support.design.widget.TextInputLayout> -->
 
         <!-- Age Label -->
         <android.support.design.widget.TextInputLayout
@@ -55,9 +59,11 @@
             android:layout_marginBottom="8dp"
             android:layout_gravity="center_horizontal">
             <EditText android:id="@+id/input_age"
+                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
+                android:textStyle="bold"
                 android:hint="@string/age" />
         </android.support.design.widget.TextInputLayout>
 
@@ -69,6 +75,7 @@
             android:id="@+id/radio_group1"
             android:layout_gravity="center_horizontal">
             <RadioButton
+                android:textSize="20dp"
                 android:id="@+id/radio_femme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,6 +83,7 @@
                 android:checked="true"
                 android:textColor="#000"/>
             <RadioButton
+                android:textSize="20dp"
                 android:id="@+id/radio_homme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -91,9 +99,11 @@
             android:layout_marginBottom="8dp"
             android:layout_gravity="center_horizontal">
             <EditText android:id="@+id/input_email"
+                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
+                android:textStyle="bold"
                 android:hint="@string/email" />
         </android.support.design.widget.TextInputLayout>
 
@@ -106,9 +116,11 @@
             android:layout_marginBottom="8dp"
             android:layout_gravity="center_horizontal">
             <EditText android:id="@+id/input_password"
+                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
+                android:textStyle="bold"
                 android:hint="@string/psw"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -120,9 +132,11 @@
             android:layout_marginBottom="8dp"
             android:layout_gravity="center_horizontal">
             <EditText android:id="@+id/input_reEnterPassword"
+                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
+                android:textStyle="bold"
                 android:hint="@string/psw2"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -137,14 +151,16 @@
             android:layout_gravity="center_horizontal"
             android:text="@string/creerCompte"/>
 
-        <TextView android:id="@+id/link_login"
+       <!-- <TextView android:id="@+id/link_login"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:layout_gravity="center_horizontal"
             android:text="@string/dejamembre"
             android:gravity="center"
-            android:textSize="16dip"/>
+            android:textStyle="bold"
+            android:textSize="20dip"/>-->
 
     </LinearLayout>
 </ScrollView>

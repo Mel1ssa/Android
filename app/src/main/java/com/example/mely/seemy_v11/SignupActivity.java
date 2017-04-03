@@ -2,6 +2,7 @@ package com.example.mely.seemy_v11;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +16,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.concurrent.ExecutionException;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -27,7 +30,7 @@ public class SignupActivity extends AppCompatActivity {
     @Bind(R.id.input_password) EditText _passwordText;
     @Bind(R.id.input_reEnterPassword) EditText _reEnterPasswordText;
     @Bind(R.id.btn_signup) Button _signupButton;
-    @Bind(R.id.link_login) TextView _loginLink;
+    //@Bind(R.id.link_login) TextView _loginLink;
     @Bind(R.id.input_age) TextView _age;
     @Bind(R.id.radio_femme) RadioButton _F;
     @Bind(R.id.radio_homme) RadioButton _H;
@@ -42,24 +45,27 @@ public class SignupActivity extends AppCompatActivity {
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signup();
+                try {
+                    signup();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
-        _loginLink.setOnClickListener(new View.OnClickListener() {
+       /* _loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Finish the registration screen and return to the Login activity
                 Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);
-                finish();
+
             }
-        });
+        });*/
 
     }
 
-    public void signup() {
-        Log.d(TAG, "Signup");
+    public void signup() throws ExecutionException, InterruptedException {
 
         if (!validate()) {
             onSignupFailed();
@@ -72,10 +78,11 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Création du compte...");
         progressDialog.show();
-        progressDialog.setMessage("Vous pouvez vous connecter !...");
-        progressDialog.show();
+        progressDialog.dismiss();
+       // progressDialog.setMessage("Vous pouvez vous connecter !...");
+        //progressDialog.show();
 
-        String name = _nameText.getText().toString();
+        String login = _nameText.getText().toString();
         String age = _age.getText().toString();
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
@@ -84,27 +91,45 @@ public class SignupActivity extends AppCompatActivity {
         if(_F.isChecked() )
             sexe="F";
         else
-            if(_H.isChecked())
-                sexe="H";
+        if(_H.isChecked())
+            sexe="H";
+
 
         // TODO: Implement your own signup logic here.
-
+        AsyncTask AT=  new SignupBackgroundActivity(this).execute(login,password,age,email,sexe);
+        String S = (String) AT.get();
+        switch(Integer.parseInt(S)){
+            case 0:
+                Toast.makeText(getBaseContext(), getText(R.string.errorValue), Toast.LENGTH_LONG).show();
+                break;
+            case 1:
+                Toast.makeText(getBaseContext(), "Vous pouvez vous connecter !...", Toast.LENGTH_LONG).show();
+                break;
+            case 2:
+                Toast.makeText(getBaseContext(), getText(R.string.existe), Toast.LENGTH_LONG).show();
+                break;
+            case 3:
+                Toast.makeText(getBaseContext(), "cas3", Toast.LENGTH_LONG).show();
+                break;
+        }
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
+
                         onSignupSuccess();
                         // onSignupFailed();
                         progressDialog.dismiss();
                     }
                 }, 3000);
+
+
     }
 
     public void onSignupSuccess() {
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
         // intent page de connexion
+
         Intent in = new Intent(getApplicationContext(),LoginActivity.class);
         startActivity(in);
     }
@@ -122,6 +147,7 @@ public class SignupActivity extends AppCompatActivity {
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
+        String age = _age.getText().toString();
 
         if (name.isEmpty() || name.length() < 3) {
             _nameText.setError("at least 3 characters");
@@ -152,6 +178,7 @@ public class SignupActivity extends AppCompatActivity {
         } else {
             _reEnterPasswordText.setError(null);
         }
+        //verif age
 
         return valid;
     }

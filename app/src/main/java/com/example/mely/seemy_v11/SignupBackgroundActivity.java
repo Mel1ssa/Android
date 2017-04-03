@@ -15,21 +15,23 @@ import java.net.URI;
 import java.net.URL;
 
 /**
- * Created by MELY on 3/31/2017.
+ * Created by MELY on 4/3/2017.
  */
 
-public class LoginBackgroundActivity extends AsyncTask {
+public class SignupBackgroundActivity extends AsyncTask {
 
     Context context;
-    public LoginBackgroundActivity(Context context){}
-
+    public SignupBackgroundActivity(Context context){}
 
     @Override
     protected String doInBackground(Object[] objects) {
-
         String username = (String) objects[0];
         String password = (String) objects[1];
-        String link = "http://10.127.209.87/android/auth.php?Pseudo="+username+"&MotDePasse="+password;
+        String    age =      (String)    objects[2];
+        String email=     (String) objects[3];
+        String sexe =     (String) objects[4];
+
+        String link = "http://10.127.209.87/android/inscription.php?Pseudo="+username+"&MotDePasse="+password+"&Email="+email+"&Age="+age+"&Sexe="+sexe;
 
         try {
             URL url = new URL(link);
@@ -61,5 +63,4 @@ public class LoginBackgroundActivity extends AsyncTask {
         }
 
     }
-
 }
