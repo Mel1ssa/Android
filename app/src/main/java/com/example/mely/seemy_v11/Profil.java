@@ -50,13 +50,14 @@ public class Profil extends Fragment implements View.OnClickListener {
         getActivity().startActivityForResult(
                 new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI),
                 RESULT_LOAD_IMG);
+        Toast.makeText(getActivity(),"Text2!",Toast.LENGTH_SHORT).show();
     }
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Toast.makeText(getActivity(),"Text2!",Toast.LENGTH_SHORT).show();
-        super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);Toast.makeText(getActivity(),"Text3",Toast.LENGTH_SHORT).show();
         //Detects request codes
         if (requestCode == RESULT_LOAD_IMG && resultCode == Activity.RESULT_OK) {
             Uri selectedImage = data.getData();
@@ -73,7 +74,6 @@ public class Profil extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Toast.makeText(getActivity(),"Text000!",Toast.LENGTH_SHORT).show();
         loadImagefromGallery(this.getView());
     }
 }

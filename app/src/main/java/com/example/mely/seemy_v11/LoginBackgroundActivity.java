@@ -29,7 +29,7 @@ public class LoginBackgroundActivity extends AsyncTask {
 
         String username = (String) objects[0];
         String password = (String) objects[1];
-        String link = "http://10.127.209.87/android/auth.php?Pseudo="+username+"&MotDePasse="+password;
+        String link = "http://172.26.66.45/android/auth.php?Pseudo="+username+"&MotDePasse="+password;
 
         try {
             URL url = new URL(link);
