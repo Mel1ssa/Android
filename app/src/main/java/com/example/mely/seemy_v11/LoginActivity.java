@@ -76,13 +76,21 @@ public class LoginActivity extends AppCompatActivity {
         String password = _passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
-         AsyncTask AT=  new LoginBackgroundActivity(this).execute(login,password);
+        AsyncTask AT=  new LoginBackgroundActivity(this).execute(login,password);
         String S = (String) AT.get();
+        //String S= "1";
         if(Integer.parseInt(S)==1){
 
             Toast.makeText(getBaseContext(), getText(R.string.supper), Toast.LENGTH_LONG).show();// a supprimer
+            //recup les tags
+            AsyncTask AT2=  new InfoProfilBackgroundActivity(this).execute(login);
+            String S2 = (String) AT2.get();
+
+
             // intent vers profil
             Intent intent = new Intent(getApplicationContext(), MainUserActivity.class);
+            intent.putExtra("USER_LOGIN",login);
+            intent.putExtra("USER_TAGS",S2);
             startActivity(intent);
             //finish();
         }

@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MainUserActivity extends AppCompatActivity {
 
@@ -26,6 +27,9 @@ public class MainUserActivity extends AppCompatActivity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     android.support.v7.app.ActionBarDrawerToggle mDrawerToggle;
+
+    String login;
+    String tags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,10 @@ public class MainUserActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         setupDrawerToggle();
 
+        Bundle extras = getIntent().getExtras();
+        login=extras.getString("USER_LOGIN");
+        tags=extras.getString("USER_TAGS");
+
     }
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
 
@@ -72,7 +80,7 @@ public class MainUserActivity extends AppCompatActivity {
                 fragment = new Acceuil();
                 break;
             case 1:
-                fragment = new Profil();
+                fragment = new Profil(login,tags);
                 break;
             case 2:
                 fragment = new Rechercher();

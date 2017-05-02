@@ -9,6 +9,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -17,21 +18,20 @@ import java.net.URI;
 import java.net.URL;
 
 /**
- * Created by MELY on 3/31/2017.
+ * Created by MELY on 4/30/2017.
  */
 
-public class LoginBackgroundActivity extends AsyncTask {
+public class InfoProfilBackgroundActivity extends AsyncTask {
 
     Context context;
-    public LoginBackgroundActivity(Context context){}
+    public InfoProfilBackgroundActivity(Context context){}
 
 
     @Override
     protected String doInBackground(Object[] objects) {
 
         String username = (String) objects[0];
-        String password = (String) objects[1];
-        String link = "http://10.127.209.87/android/auth.php?Pseudo="+username+"&MotDePasse="+password;
+        String link = "http://10.127.209.87/android/get_user_tags.php?Pseudo=" + username;
 
         try {
             URL url = new URL(link);
@@ -42,26 +42,41 @@ public class LoginBackgroundActivity extends AsyncTask {
 
             BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             StringBuffer sb = new StringBuffer("");
-            String line="";
-            line = in.readLine();line = in.readLine();// pour supprimer les db_conf en attendant de trouver mieux
+            String line = "";
+            line = in.readLine();
+            line = in.readLine();// pour supprimer les db_conf en attendant de trouver mieux
             while ((line = in.readLine()) != null) {
                 sb.append(line);
 
             }
-            String res= sb.toString();
+            String res = sb.toString();
             in.close();
             //JSON Parsing
             JSONObject jObject = new JSONObject(res);
             int success = jObject.getInt("success");
 
+            if (success == 1) {
 
-            return Integer.toString(success);
+                JSONArray tags = jObject.getJSONArray("tag");
+
+                String retour =" ";
+
+                for (int i = 0; i < tags.length(); i++) {
+                    JSONObject obj= tags.getJSONObject(i);
+                    String tag = obj.getString("Contenu_tag");
+                    retour = retour + tag + " ";
+                }
+                return retour;
+
+            }
+            else
+                return null;
 
         } catch (Exception e) {
             e.printStackTrace();
-            return new String("Exception: " + e.getMessage());
+            Log.e("error",e.getMessage());
         }
 
+    return null;
     }
-
 }

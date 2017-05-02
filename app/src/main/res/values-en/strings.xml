@@ -18,4 +18,6 @@
     <string name="echec">Failed Login</string>
     <string name="supper">Great !</string>
     <string name="errorValue">alphanumeric only (4-20)</string>
+    <string name="Tag">Modifier ses tags</string>
+    <string name="Distance">Modifier la distance</string>
 </resources>
