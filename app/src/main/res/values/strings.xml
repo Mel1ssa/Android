@@ -3,7 +3,7 @@
     <string name="email">Email</string>
     <string name="psw">Mot de Passe</string>
     <string name="logIn">Se connecter</string>
-    <string name="signIn">Pas encre de compte ?\n Creéz-en un !</string>
+    <string name="signIn">Pas encore de compte ?\n Créez-en un !</string>
     <string name="title_activity_signup">SignupActivity</string>
     <string name="name">Nom</string>
     <string name="prename">Prénom</string>
