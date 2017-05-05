@@ -28,6 +28,8 @@ public class MainUserActivity extends AppCompatActivity {
     private CharSequence mTitle;
     android.support.v7.app.ActionBarDrawerToggle mDrawerToggle;
 
+    Utilisateur user;
+
     String login;
     String tags;
 
@@ -61,6 +63,7 @@ public class MainUserActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         login=extras.getString("USER_LOGIN");
         tags=extras.getString("USER_TAGS");
+        user= (Utilisateur) getIntent().getSerializableExtra("USER");
 
     }
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -80,7 +83,8 @@ public class MainUserActivity extends AppCompatActivity {
                 fragment = new Acceuil();
                 break;
             case 1:
-                fragment = new Profil(login,tags);
+             //   Toast.makeText(this.getBaseContext(),user.toString(),Toast.LENGTH_SHORT).show();
+                fragment = new Profil(user);
                 break;
             case 2:
                 fragment = new Rechercher();

@@ -8,66 +8,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tag1"/>
+        android:text="Tag :"/>
 
     <EditText
-        android:id="@+id/EditTag1"
+        android:id="@+id/EditTag"
         android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <requestFocus />
         </EditText>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tag 2 :"/>
-
-    <EditText
-        android:id="@+id/EditTag2"
-        android:textColor="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tag 3"/>
-
-    <EditText
-        android:id="@+id/EditTag3"
-        android:textColor="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tag 4 :"/>
-
-    <EditText
-        android:id="@+id/EditTag4"
-        android:textColor="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <requestFocus />
-    </EditText>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tag 5 :"/>
-
-    <EditText
-        android:id="@+id/EditTag5"
-        android:textColor="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <requestFocus />
-    </EditText>
 
 
 

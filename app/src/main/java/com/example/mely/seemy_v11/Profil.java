@@ -9,27 +9,20 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -38,12 +31,11 @@ import static android.app.Activity.RESULT_OK;
 
 @SuppressLint("ValidFragment")
 public class Profil extends Fragment implements View.OnClickListener {
-    String login;
-    String tags;
+    Utilisateur user;
     @SuppressLint("ValidFragment")
-    public Profil(String login,String tags) {
-        this.login=login;
-        this.tags=tags;
+    public Profil(Utilisateur user) {
+        this.user=user;
+
     }
     private static int RESULT_LOAD_IMG = 1;
     String imgDecodableString;
@@ -57,12 +49,14 @@ public class Profil extends Fragment implements View.OnClickListener {
 
         View rootView = inflater.inflate(R.layout.profil, container, false);
         TextView edt = (TextView) rootView.findViewById(R.id.user_profile_name);
-        edt.setText(login);
+        edt.setText(user.getPseudo());
         edt_tags = (TextView) rootView.findViewById(R.id.user_profile_short_bio);
-        if(tags!=null) {
 
-
-            edt_tags.setText(tags);
+        if(user.getTags()!=null) {
+            String t="";
+            for(String s : user.getTags())
+                t=t+"#"+s+" ";
+            edt_tags.setText(t);
         }
 
 
@@ -125,60 +119,48 @@ public class Profil extends Fragment implements View.OnClickListener {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View subView = inflater.inflate(R.layout.listeview_tags, null);
 
-        final EditText _tag1 = (EditText)subView.findViewById(R.id.EditTag1);
-        final EditText _tag2 = (EditText)subView.findViewById(R.id.EditTag2);
-        final EditText _tag3 = (EditText)subView.findViewById(R.id.EditTag3);
-        final EditText _tag4 = (EditText)subView.findViewById(R.id.EditTag4);
-        final EditText _tag5 = (EditText)subView.findViewById(R.id.EditTag5);
+        final EditText _tag1 = (EditText)subView.findViewById(R.id.EditTag);
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Ajouter des tags");
         builder.setView(subView);
-        AlertDialog alertDialog = builder.create();
+        builder.setPositiveButton("Ajouter", null);
+        builder.setNegativeButton("Fermer", null);
+        final AlertDialog alertDialog = builder.create();
 
-        builder.setPositiveButton("Modifier", new DialogInterface.OnClickListener() {
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                try {
-                    if(!_tag1.getText().toString().equals("")) {
-                        edt_tags.append(" #" + _tag1.getText().toString());
-                        AsyncTask AT=  new SaveTagBackground(getActivity()).execute(login,_tag1.getText().toString(),"Tag");
-                    }
-                    if(!_tag2.getText().toString().equals("")) {
-                        edt_tags.append(" #" + _tag2.getText().toString());
-                        AsyncTask AT=  new SaveTagBackground(getActivity()).execute(login,_tag2.getText().toString(),"Tag");
+            public void onShow(DialogInterface dialog) {
+                Button button = ((AlertDialog) dialog).getButton(alertDialog.BUTTON_POSITIVE);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            if (!_tag1.getText().toString().equals("")) {
+                                edt_tags.append(" #" + _tag1.getText().toString());
+                                AsyncTask AT = new SaveTagBackground(getActivity()).execute(user.getPseudo(), _tag1.getText().toString(), "Tag");
+                                user.add_Tag(_tag1.getText().toString());
+                                _tag1.setText("");
 
-                    }
-                    if(!_tag3.getText().toString().equals("")) {
-                        edt_tags.append(" #" + _tag3.getText().toString());
-                        AsyncTask AT=  new SaveTagBackground(getActivity()).execute(login,_tag3.getText().toString(),"Tag");
+                            }
 
+                        } catch (Exception e) {
+                            Toast.makeText(getActivity(), "erreur : " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
                     }
-                    if(!_tag4.getText().toString().equals("")) {
-                        edt_tags.append(" #" + _tag4.getText().toString());
-                        AsyncTask AT=  new SaveTagBackground(getActivity()).execute(login,_tag4.getText().toString(),"Tag");
-
-                    }
-                    if(!_tag5.getText().toString().equals("")) {
-                        edt_tags.append(" #" + _tag5.getText().toString());
-                        AsyncTask AT=  new SaveTagBackground(getActivity()).execute(login,_tag5.getText().toString(),"Tag");
-
-                    }
-
-                }catch (Exception e){
-                    Toast.makeText(getActivity(),"erreur : "+e.getMessage(),Toast.LENGTH_LONG).show();
+                });
                 }
-
             }
-        });
+        );
+
 
         builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {}
         });
-
-        builder.show();
+            alertDialog.show();
     }
 
     private  void openCheckDistance(){
@@ -199,9 +181,9 @@ public class Profil extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 if(!select.equals("Aucun")){
-                    AsyncTask AT=  new SaveTagBackground(getActivity()).execute(login,select,"Distance");}
+                    AsyncTask AT=  new SaveTagBackground(getActivity()).execute(user.getPseudo(),select,"Distance");}
                 else{
-                    AsyncTask AT=  new SaveTagBackground(getActivity()).execute(login,"0","Distance");
+                    AsyncTask AT=  new SaveTagBackground(getActivity()).execute(user.getPseudo(),"0","Distance");
                 }
 
             }

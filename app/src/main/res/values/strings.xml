@@ -26,7 +26,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="Tag">Modifier ses tags</string>
+    <string name="Tag">Ajouter des tags</string>
     <string name="Distance">Modifier la distance</string>
 
     <string-array name="navigation_drawer_items_array">

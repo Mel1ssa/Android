@@ -12,6 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -77,18 +81,22 @@ public class LoginActivity extends AppCompatActivity {
 
         // TODO: Implement your own authentication logic here.
         AsyncTask AT=  new LoginBackgroundActivity(this).execute(login,password);
-        String S = (String) AT.get();
-        //String S= "1";
-        if(Integer.parseInt(S)==1){
+        Map<String, String> S= (Map<String, String>) AT.get();
 
-            Toast.makeText(getBaseContext(), getText(R.string.supper), Toast.LENGTH_LONG).show();// a supprimer
+        if(Integer.parseInt(S.get("success"))==1){
+            //Création du user en local
+
+            Utilisateur user= new Utilisateur(S.get("Id"),login,S.get("Sexe"),S.get("Age"),S.get("Dist"));
             //recup les tags
             AsyncTask AT2=  new InfoProfilBackgroundActivity(this).execute(login);
             String S2 = (String) AT2.get();
+            String[] Tags= S2.split(" ");
+            user.setTags(Tags);
 
 
             // intent vers profil
             Intent intent = new Intent(getApplicationContext(), MainUserActivity.class);
+            intent.putExtra("USER",user);
             intent.putExtra("USER_LOGIN",login);
             intent.putExtra("USER_TAGS",S2);
             startActivity(intent);
