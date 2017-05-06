@@ -3,6 +3,9 @@ package com.example.mely.seemy_v11;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -79,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
         String login = _pseudoText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        // TODO: Implement your own authentication logic here.
+        // vérifie que l'utilisateur existe
         AsyncTask AT=  new LoginBackgroundActivity(this).execute(login,password);
         Map<String, String> S= (Map<String, String>) AT.get();
 
@@ -93,12 +96,12 @@ public class LoginActivity extends AppCompatActivity {
             String[] Tags= S2.split(" ");
             user.setTags(Tags);
 
+            //recup localisation
+
 
             // intent vers profil
             Intent intent = new Intent(getApplicationContext(), MainUserActivity.class);
             intent.putExtra("USER",user);
-            intent.putExtra("USER_LOGIN",login);
-            intent.putExtra("USER_TAGS",S2);
             startActivity(intent);
             //finish();
         }
@@ -148,4 +151,6 @@ public class LoginActivity extends AppCompatActivity {
 
         return valid;
     }
+
+
 }

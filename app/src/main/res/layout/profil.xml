@@ -21,14 +21,7 @@
             android:padding="20dp"
             android:scaleType="centerCrop"
             android:src="@drawable/profil" />
-        <ImageView
-            android:id="@+id/add_friend"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="150dp"
-            android:layout_toRightOf="@+id/user_profile_photo"
-            android:src="@drawable/coffeecup" />
+
 
         <RelativeLayout
             android:id="@+id/profile_layout"

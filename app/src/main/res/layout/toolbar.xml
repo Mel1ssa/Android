@@ -7,4 +7,23 @@
     android:background="@android:color/transparent"
     local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-    />
+    >
+    <ImageButton
+        android:id="@+id/refresh"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="8dp"
+        android:background="?selectableItemBackground"
+        android:hint="Mettre à jour ma position"
+        android:src="@drawable/refresh" />
+    <ImageButton
+        android:id="@+id/notif"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="right"
+        android:layout_marginLeft="8dp"
+        android:background="?selectableItemBackground"
+        android:hint="Mettre à jour ma position"
+        android:src="@drawable/notif" />
+</android.support.v7.widget.Toolbar>
