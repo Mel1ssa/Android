@@ -36,7 +36,8 @@ public class LoginBackgroundActivity extends AsyncTask {
         String password = (String) objects[1];
         Map<String, String> retour = new HashMap<String, String>();
 
-        String link = "http://10.127.209.87/android/auth.php?Pseudo="+username+"&MotDePasse="+password;
+        //String link = "http://10.127.209.87/android/auth.php?Pseudo="+username+"&MotDePasse="+password;
+        String link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/auth_PDO.php?Pseudo="+username+"&MotDePasse="+password;
 
         try {
             URL url = new URL(link);
