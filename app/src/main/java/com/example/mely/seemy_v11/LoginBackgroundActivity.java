@@ -1,11 +1,7 @@
 package com.example.mely.seemy_v11;
 
 import android.content.Context;
-import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.Toast;
-
-import org.apache.http.HttpResponse;
+import android.os.AsyncTask;import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -15,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +20,6 @@ import java.util.Map;
 
 public class LoginBackgroundActivity extends AsyncTask {
 
-    Context context;
     public LoginBackgroundActivity(Context context){}
 
 
@@ -36,8 +30,8 @@ public class LoginBackgroundActivity extends AsyncTask {
         String password = (String) objects[1];
         Map<String, String> retour = new HashMap<String, String>();
 
-        //String link = "http://10.127.209.87/android/auth.php?Pseudo="+username+"&MotDePasse="+password;
-        String link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/auth_PDO.php?Pseudo="+username+"&MotDePasse="+password;
+        String link = "http://10.127.209.87/android/auth.php?Pseudo="+username+"&MotDePasse="+password;
+       // String link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/auth_PDO.php?Pseudo="+username+"&MotDePasse="+password;
 
         try {
             URL url = new URL(link);

@@ -12,14 +12,13 @@ import android.view.ViewGroup;
 
 public class Deconnexion extends Fragment{
     public Deconnexion() {
+        //retour au loginActivity
         Intent intent = new Intent(getContext(),LoginActivity.class);
         startActivity(intent);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-
         return null;
     }
 }

@@ -66,7 +66,7 @@ public class InfoProfilBackgroundActivity extends AsyncTask {
                     String tag = obj.getString("Contenu_tag");
                     retour = retour + tag + " ";
                 }
-                return retour;
+                return retour.substring(0,retour.length()-1);
 
             }
             else

@@ -4,11 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,7 +20,7 @@ import butterknife.ButterKnife;
 public class SignupActivity extends AppCompatActivity {
 
     private static final String TAG = "SignupActivity";
-//bouh
+
     @Bind(R.id.input_name) EditText _nameText;
     @Bind(R.id.input_email) EditText _emailText;
     @Bind(R.id.input_password) EditText _passwordText;
@@ -41,7 +37,7 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         ButterKnife.bind(this);
-
+        //bouton d'inscription
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +48,7 @@ public class SignupActivity extends AppCompatActivity {
                 }
             }
         });
-
+        //lien vers la connexion
      _loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,22 +62,22 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void signup() throws ExecutionException, InterruptedException {
-
+        //on verifie la validité des infos
         if (!validate()) {
-            onSignupFailed();
+            Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+            _signupButton.setEnabled(true);
             return;
         }
 
         _signupButton.setEnabled(false);
-
+        //barre de progression en attendant la création dans la bd
         final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this, R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Création du compte...");
         progressDialog.show();
         progressDialog.dismiss();
-       // progressDialog.setMessage("Vous pouvez vous connecter !...");
-        //progressDialog.show();
 
+        //recup des infos
         String login = _nameText.getText().toString();
         String age = _age.getText().toString();
         String email = _emailText.getText().toString();
@@ -94,13 +90,13 @@ public class SignupActivity extends AppCompatActivity {
         if(_H.isChecked())
             sexe="H";
 
-
-        // TODO: Implement your own signup logic here.
+        //création du compte en bd avec les infos si dessus
         AsyncTask AT=  new SignupBackgroundActivity(this).execute(login,password,age,email,sexe);
         String S = (String) AT.get();
         switch(Integer.parseInt(S)){
             case 0:
-                Toast.makeText(getBaseContext(), getText(R.string.errorValue), Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Erreur lors de la création en bd", Toast.LENGTH_LONG).show();
+
                 break;
             case 1:
                 Toast.makeText(getBaseContext(), "Vous pouvez vous connecter !...", Toast.LENGTH_LONG).show();
@@ -109,15 +105,17 @@ public class SignupActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), getText(R.string.existe), Toast.LENGTH_LONG).show();
                 break;
             case 3:
-                Toast.makeText(getBaseContext(), "cas3", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Parametre manquant", Toast.LENGTH_LONG).show();
                 break;
         }
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-
-                        onSignupSuccess();
-                        // onSignupFailed();
+                        _signupButton.setEnabled(true);
+                        setResult(RESULT_OK, null);
+                        //on passe a la page de connexion
+                        Intent in = new Intent(getApplicationContext(),LoginActivity.class);
+                        startActivity(in);
                         progressDialog.dismiss();
                     }
                 }, 3000);
@@ -125,20 +123,6 @@ public class SignupActivity extends AppCompatActivity {
 
     }
 
-    public void onSignupSuccess() {
-        _signupButton.setEnabled(true);
-        setResult(RESULT_OK, null);
-        // intent page de connexion
-
-        Intent in = new Intent(getApplicationContext(),LoginActivity.class);
-        startActivity(in);
-    }
-
-    public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-
-        _signupButton.setEnabled(true);
-    }
 
     public boolean validate() {
         boolean valid = true;

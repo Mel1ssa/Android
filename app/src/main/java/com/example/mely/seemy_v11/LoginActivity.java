@@ -1,23 +1,15 @@
 package com.example.mely.seemy_v11;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.location.Criteria;
-import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import butterknife.Bind;
@@ -39,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        //bouton de connexion
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -50,12 +43,12 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
+        //lien vers l'inscription
         _signupLink.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // Start the Signup activity
+
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
                 finish();
@@ -67,13 +60,16 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void login() throws ExecutionException, InterruptedException {
+        //vérifie la validité des infos
        if (!validate()) {
-            onLoginFailed();
+           Toast.makeText(getBaseContext(), R.string.echec, Toast.LENGTH_LONG).show();
+           _loginButton.setEnabled(true);
             return;
         }
 
         _loginButton.setEnabled(false);
 
+        //barre de progression on attendant de vérfier dans la base si l'utilisateur existe
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage(getText(R.string.auth));
@@ -96,10 +92,7 @@ public class LoginActivity extends AppCompatActivity {
             String[] Tags= S2.split(" ");
             user.setTags(Tags);
 
-            //recup localisation
-
-
-            // intent vers profil
+            // intent vers la page d'acceuil
             Intent intent = new Intent(getApplicationContext(), MainUserActivity.class);
             intent.putExtra("USER",user);
             startActivity(intent);
@@ -112,22 +105,12 @@ public class LoginActivity extends AppCompatActivity {
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        onLoginSuccess();
-                        // onLoginFailed();
+                        _loginButton.setEnabled(true);
                         progressDialog.dismiss();
                     }
                 }, 3000);
     }
-    public void onLoginSuccess() {
-        _loginButton.setEnabled(true);
-        // TODO : intent pour rentrer dans l'appli
-    }
 
-    public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), R.string.echec, Toast.LENGTH_LONG).show();
-
-        _loginButton.setEnabled(true);
-    }
 
     public boolean validate() {
         boolean valid = true;

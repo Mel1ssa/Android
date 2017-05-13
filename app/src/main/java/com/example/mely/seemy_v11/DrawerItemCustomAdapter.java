@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+// Adapteur contennat la liste des items du menu principal
 public class DrawerItemCustomAdapter extends ArrayAdapter<DataModel>{
     Context mContext;
     int layoutResourceId;

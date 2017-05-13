@@ -32,6 +32,7 @@ import static android.app.Activity.RESULT_OK;
 @SuppressLint("ValidFragment")
 public class Profil extends Fragment implements View.OnClickListener {
     Utilisateur user;
+
     @SuppressLint("ValidFragment")
     public Profil(Utilisateur user) {
         this.user=user;
@@ -51,7 +52,7 @@ public class Profil extends Fragment implements View.OnClickListener {
         TextView edt = (TextView) rootView.findViewById(R.id.user_profile_name);
         edt.setText(user.getPseudo());
         edt_tags = (TextView) rootView.findViewById(R.id.user_profile_short_bio);
-
+        //affichage des tags
         if(user.getTags()!=null) {
             String t="";
             for(String s : user.getTags())
@@ -59,15 +60,22 @@ public class Profil extends Fragment implements View.OnClickListener {
             edt_tags.setText(t);
         }
 
-
+        //affichage de la photo de profil selon le sexe
         ImageButton imB = (ImageButton)rootView.findViewById(R.id.user_profile_photo);
+        if(user.getSexe().equals("H"))
+            imB.setImageResource(R.drawable.user_male);
+        else
+            imB.setImageResource(R.drawable.user_female);
+
+        //appel a la même méthode onclick selon le bouton
+
         imB.setOnClickListener(this);
 
         Button addTags = (Button)rootView.findViewById(R.id.btn_add_tags);
         addTags.setOnClickListener(this);
+
         Button addDistance = (Button)rootView.findViewById(R.id.btn_add_distance);
         addDistance.setOnClickListener(this);
-
 
         return rootView;
     }
@@ -80,7 +88,6 @@ public class Profil extends Fragment implements View.OnClickListener {
                 loadImagefromGallery(this.getView());
                 break;
             case R.id.btn_add_tags:
-                //Toast.makeText(getActivity(), "liste1", Toast.LENGTH_LONG).show();// a supprimer
                 this.openDialog();
                 break;
             case R.id.btn_add_distance:
@@ -95,7 +102,6 @@ public class Profil extends Fragment implements View.OnClickListener {
                 RESULT_LOAD_IMG);
     }
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Toast.makeText(getActivity(),"Text2!",Toast.LENGTH_SHORT).show();
@@ -108,7 +114,7 @@ public class Profil extends Fragment implements View.OnClickListener {
             _profileImg.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
         }
         else{
-           //Fragment fragment = new Rechercher();
+           //Fragment fragment = new Messages();
             }
 
 
@@ -118,10 +124,9 @@ public class Profil extends Fragment implements View.OnClickListener {
     private void openDialog(){
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View subView = inflater.inflate(R.layout.listeview_tags, null);
+        final EditText _tag = (EditText)subView.findViewById(R.id.EditTag);
 
-        final EditText _tag1 = (EditText)subView.findViewById(R.id.EditTag);
-
-
+        //ouvre une fenetre pour rajouter un tag
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Ajouter des tags");
         builder.setView(subView);
@@ -138,12 +143,13 @@ public class Profil extends Fragment implements View.OnClickListener {
                     @Override
                     public void onClick(View view) {
                         try {
-                            if (!_tag1.getText().toString().equals("")) {
-                                edt_tags.append(" #" + _tag1.getText().toString());
-                                AsyncTask AT = new UpdateProfilBackground(getActivity()).execute( "Tag",user.getPseudo(), _tag1.getText().toString());
-                                user.add_Tag(_tag1.getText().toString());
-                                _tag1.setText("");
-
+                            if (!_tag.getText().toString().equals("")) {
+                                edt_tags.append(" #" + _tag.getText().toString());
+                                //Ajoute le tag a la bd
+                                AsyncTask AT = new UpdateProfilBackground(getActivity()).execute( "Tag",user.getPseudo(), _tag.getText().toString());
+                                user.add_Tag(_tag.getText().toString());
+                                //raz ddu champ tag
+                                _tag.setText("");
                             }
 
                         } catch (Exception e) {
@@ -155,12 +161,14 @@ public class Profil extends Fragment implements View.OnClickListener {
             }
         );
 
-
-        builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener()
+        { //ne fait rien si on annule
             @Override
             public void onClick(DialogInterface dialog, int which) {}
+
         });
-            alertDialog.show();
+        //affichage
+        alertDialog.show();
     }
 
     private  void openCheckDistance(){
@@ -180,6 +188,7 @@ public class Profil extends Fragment implements View.OnClickListener {
         }).setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
+                //maj de la base de donnée
                 if(!select.equals("Aucun")){
                     AsyncTask AT=  new UpdateProfilBackground(getActivity()).execute("Distance",user.getPseudo(),select);
                     user.setDist(select);
@@ -191,11 +200,12 @@ public class Profil extends Fragment implements View.OnClickListener {
 
             }
         }).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+            // ne fait rien si on annule
             @Override
             public void onClick(DialogInterface dialog, int which) {}
 
         });
-
+        //affichage
         dialog = builder.create();
         dialog.show();
 

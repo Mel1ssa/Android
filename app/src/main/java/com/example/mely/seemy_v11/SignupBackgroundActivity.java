@@ -27,12 +27,12 @@ public class SignupBackgroundActivity extends AsyncTask {
     protected String doInBackground(Object[] objects) {
         String username = (String) objects[0];
         String password = (String) objects[1];
-        String    age =      (String)    objects[2];
+        String age =      (String) objects[2];
         String email=     (String) objects[3];
         String sexe =     (String) objects[4];
 
-       // String link = "http://10.127.209.87/android/inscription.php?Pseudo="+username+"&MotDePasse="+password+"&Email="+email+"&Age="+age+"&Sexe="+sexe;
-        String link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/inscription_PDO.php?Pseudo="+username+"&MotDePasse="+password+"&Email="+email+"&Age="+age+"&Sexe="+sexe;
+        String link = "http://10.127.209.87/android/inscription.php?Pseudo="+username+"&MotDePasse="+password+"&Email="+email+"&Age="+age+"&Sexe="+sexe;
+        //String link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/inscription_PDO.php?Pseudo="+username+"&MotDePasse="+password+"&Email="+email+"&Age="+age+"&Sexe="+sexe;
         try {
             URL url = new URL(link);
             HttpClient client = new DefaultHttpClient();

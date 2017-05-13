@@ -10,14 +10,14 @@ import android.view.ViewGroup;
  * Created by MELY on 4/17/2017.
  */
 
-public class Rechercher extends Fragment {
-    public Rechercher() {
+public class Messages extends Fragment {
+    public Messages() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.rechercher, container, false);
+        View rootView = inflater.inflate(R.layout.messages, container, false);
 
         return rootView;
     }

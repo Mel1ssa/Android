@@ -29,10 +29,10 @@
     <string name="Tag">Ajouter des tags</string>
     <string name="Distance">Modifier la distance</string>
 
-    <string-array name="navigation_drawer_items_array">
+    <string-array name="navigation_items">
         <item>Acceuil</item>
         <item>Profil</item>
-        <item>Recherche</item>
+        <item>Messages</item>
         <item>Deconnexion</item>
     </string-array>
 </resources>

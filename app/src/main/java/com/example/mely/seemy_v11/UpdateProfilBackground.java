@@ -13,8 +13,11 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by MELY on 4/30/2017.
@@ -28,14 +31,14 @@ public class UpdateProfilBackground extends AsyncTask {
 
 
     @Override
-    protected String doInBackground(Object[] objects) {
+    protected Object doInBackground(Object[] objects) {
         String cas = (String) objects[0];
         String username = (String) objects[1];
-        String tag = (String) objects[2];
+
 
         switch (cas) {
             case "Tag":
-
+                String tag = (String) objects[2];
                 String link = "http://10.127.209.87/android/insert_user_tag.php?Pseudo=" + username + "&Contenu_tag=" + tag;
 
                 try {
@@ -92,7 +95,7 @@ public class UpdateProfilBackground extends AsyncTask {
                 }
                 break;
             case "Localisation":
-                Log.d("bubu ","debut loc");
+
                 String longitude = (String) objects[2];
                 String latitude = (String) objects[3];
                 String altitude = (String) objects[4];
@@ -120,6 +123,99 @@ public class UpdateProfilBackground extends AsyncTask {
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e("error", e.getMessage());
+                }
+                break;
+            case "Recherche":
+                link = "http://10.127.209.87/android/GetUsersByDistance.php?Pseudo=" + username;
+                try {
+                    URL url = new URL(link);
+                    HttpClient client = new DefaultHttpClient();
+                    HttpGet request = new HttpGet();
+                    request.setURI(new URI(link));
+                    HttpResponse response = client.execute(request);
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                    StringBuffer sb = new StringBuffer("");
+                    String line = "";
+                    line = in.readLine();line = in.readLine();
+                    while ((line = in.readLine()) != null) {
+                        sb.append(line);
+
+                    }
+                    String res = sb.toString();
+                    in.close();
+                    //JSON Parsing
+                    JSONObject jObject = new JSONObject(res);
+                    int success = jObject.getInt("success");
+
+                    if (success == 1) {
+                        JSONArray ids = jObject.getJSONArray("utilisateurs");
+                        String retour ="";
+
+                        for (int i = 0; i < ids.length(); i++) {
+
+                            String id = (String) ids.get(i);
+                            retour = retour + id + " ";
+                        }
+                        return retour;
+
+                    }
+                    else
+                    return res;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("error log", e.getMessage());
+            }
+                break;
+            case "RecupUsers":
+                link = "http://10.127.209.87/android/getUsersById.php?id=" + objects[1];
+                Map<String, Object> ret = new HashMap<String, Object>();
+                try {
+                    URL url = new URL(link);
+                    HttpClient client = new DefaultHttpClient();
+                    HttpGet request = new HttpGet();
+                    request.setURI(new URI(link));
+                    HttpResponse response = client.execute(request);
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                    StringBuffer sb = new StringBuffer("");
+                    String line = "";
+                    line = in.readLine();line = in.readLine();
+                    while ((line = in.readLine()) != null) {
+                        sb.append(line);
+
+                    }
+                    String res = sb.toString();
+                    in.close();
+                    //JSON Parsing
+                    JSONObject jObject = new JSONObject(res);
+                    int success = jObject.getInt("success");
+
+                    if (success == 1) {
+                        ret.put("success",Integer.toString(success));
+                        JSONArray user = jObject.getJSONArray("utilisateur");
+                        String retour =" ";
+
+                        for (int i = 0; i < user.length(); i++) {
+                            JSONObject obj= user.getJSONObject(i);
+                            ret.put("Pseudo",obj.getString("Pseudo"));
+                            ret.put("Age",obj.getString("Age")+" ans");
+                            if(obj.getString("Sexe").equals("H"))
+                                ret.put("Sexe",R.drawable.user_male);
+                            else
+                                ret.put("Sexe",R.drawable.user_female);
+                        }
+
+                        return ret;
+
+                    }
+                    else
+                        return res;
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e("error log", e.getMessage());
                 }
                 break;
 
