@@ -30,8 +30,9 @@ public class InfoProfilBackgroundActivity extends AsyncTask {
     @Override
     protected String doInBackground(Object[] objects) {
 
-        String username = (String) objects[0];
-        String link = "http://10.127.209.87/android/get_user_tags.php?Pseudo=" + username;
+        String Id = (String) objects[0];
+        //String link = "http://10.127.209.87/android/get_user_tags.php?Pseudo=" + username;
+        String link ="http://nicolasdke.cluster023.hosting.ovh.net/seemy/get_user_tag_PDO.php?Id="+Id;
 
         try {
             URL url = new URL(link);
@@ -43,8 +44,11 @@ public class InfoProfilBackgroundActivity extends AsyncTask {
             BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             StringBuffer sb = new StringBuffer("");
             String line = "";
-            line = in.readLine();
+
             line = in.readLine();// pour supprimer les db_conf en attendant de trouver mieux
+            Log.e("debug : ligne tag",line);
+            //line = in.readLine();// pour supprimer les db_conf en attendant de trouver mieux
+            //Log.e("debug : ligne tag2",line);
             while ((line = in.readLine()) != null) {
                 sb.append(line);
 
@@ -56,7 +60,7 @@ public class InfoProfilBackgroundActivity extends AsyncTask {
             int success = jObject.getInt("success");
 
             if (success == 1) {
-
+                Log.e("debug : ligne tag","su");
                 JSONArray tags = jObject.getJSONArray("tag");
 
                 String retour =" ";

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -87,8 +88,9 @@ public class LoginActivity extends AppCompatActivity {
 
             Utilisateur user= new Utilisateur(S.get("Id"),login,S.get("Sexe"),S.get("Age"),S.get("Dist"));
             //recup les tags
-            AsyncTask AT2=  new InfoProfilBackgroundActivity(this).execute(login);
+            AsyncTask AT2=  new InfoProfilBackgroundActivity(this).execute(S.get("Id"));
             String S2 = (String) AT2.get();
+            Log.e("debug : coucou",S2);
             String[] Tags= S2.split(" ");
             user.setTags(Tags);
 
@@ -99,8 +101,9 @@ public class LoginActivity extends AppCompatActivity {
             //finish();
         }
 
-        else
+        else {
             Toast.makeText(getBaseContext(), getText(R.string.inconnu), Toast.LENGTH_LONG).show();
+        }
 
         new android.os.Handler().postDelayed(
                 new Runnable() {

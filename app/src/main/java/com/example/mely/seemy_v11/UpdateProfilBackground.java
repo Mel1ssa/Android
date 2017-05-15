@@ -95,11 +95,13 @@ public class UpdateProfilBackground extends AsyncTask {
                 }
                 break;
             case "Localisation":
-
+                String Id= (String) objects[1];
                 String longitude = (String) objects[2];
                 String latitude = (String) objects[3];
                 String altitude = (String) objects[4];
-                link = "http://10.127.209.87/android/updateLocalisation.php?Pseudo="+username+"&Longitude="+longitude+"&Latitude="+latitude+"&Altitude="+altitude;
+
+                //link = "http://10.127.209.87/android/updateLocalisation.php?Pseudo="+username+"&Longitude="+longitude+"&Latitude="+latitude+"&Altitude="+altitude;
+                link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/updateLocalisation_PDO.php?Id="+Id+"&Longitude="+longitude+"&Latitude="+latitude+"&Altitude="+altitude;
                 Log.d("longitude ",longitude);
                 try {
                     URL url = new URL(link);
@@ -111,6 +113,8 @@ public class UpdateProfilBackground extends AsyncTask {
                     BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
                     StringBuffer sb = new StringBuffer("");
                     String line = "";
+                    line = in.readLine();// pour supprimer les db_conf en attendant de trouver mieux
+                    Log.e("debug : ligne tag",line);
 
                     while ((line = in.readLine()) != null) {
                         sb.append(line);

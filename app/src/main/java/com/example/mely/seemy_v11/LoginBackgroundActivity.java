@@ -1,7 +1,10 @@
 package com.example.mely.seemy_v11;
 
 import android.content.Context;
-import android.os.AsyncTask;import org.apache.http.HttpResponse;
+import android.os.AsyncTask;
+import android.util.Log;
+
+import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -30,8 +33,8 @@ public class LoginBackgroundActivity extends AsyncTask {
         String password = (String) objects[1];
         Map<String, String> retour = new HashMap<String, String>();
 
-        String link = "http://10.127.209.87/android/auth.php?Pseudo="+username+"&MotDePasse="+password;
-       // String link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/auth_PDO.php?Pseudo="+username+"&MotDePasse="+password;
+        //String link = "http://10.127.209.87/android/auth.php?Pseudo="+username+"&MotDePasse="+password;
+        String link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/auth_PDO.php?Pseudo="+username+"&MotDePasse="+password;
 
         try {
             URL url = new URL(link);
@@ -43,7 +46,10 @@ public class LoginBackgroundActivity extends AsyncTask {
             BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             StringBuffer sb = new StringBuffer("");
             String line="";
-            line = in.readLine();line = in.readLine();// pour supprimer les db_conf en attendant de trouver mieux
+            Log.e("debug : ligne 1",line);
+            line = in.readLine();// pour supprimer les db_conf en attendant de trouver mieux
+
+
             while ((line = in.readLine()) != null) {
                 sb.append(line);
 
@@ -53,14 +59,15 @@ public class LoginBackgroundActivity extends AsyncTask {
             //JSON Parsing
             JSONObject jObject = new JSONObject(res);
             int success = jObject.getInt("success");
-
+            Log.e("debug : coucou1",""+success);
             retour.put("success",Integer.toString(success));
             if(success==1){
+                Log.e("debug : coucou","x");
                 retour.put("Id",jObject.getString("id"));
                 retour.put("Age",jObject.getString("age"));
                 retour.put("Sexe",jObject.getString("sexe"));
                 retour.put("Dist",jObject.getString("dist"));
-
+                Log.e("debug : coucou",jObject.getString("id"));
             }
 
             return retour;

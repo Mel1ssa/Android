@@ -2,6 +2,7 @@ package com.example.mely.seemy_v11;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -31,8 +32,8 @@ public class SignupBackgroundActivity extends AsyncTask {
         String email=     (String) objects[3];
         String sexe =     (String) objects[4];
 
-        String link = "http://10.127.209.87/android/inscription.php?Pseudo="+username+"&MotDePasse="+password+"&Email="+email+"&Age="+age+"&Sexe="+sexe;
-        //String link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/inscription_PDO.php?Pseudo="+username+"&MotDePasse="+password+"&Email="+email+"&Age="+age+"&Sexe="+sexe;
+        //String link = "http://10.127.209.87/android/inscription.php?Pseudo="+username+"&MotDePasse="+password+"&Email="+email+"&Age="+age+"&Sexe="+sexe;
+        String link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/inscription_PDO.php?Pseudo="+username+"&MotDePasse="+password+"&Email="+email+"&Age="+age+"&Sexe="+sexe;
         try {
             URL url = new URL(link);
             HttpClient client = new DefaultHttpClient();
@@ -43,7 +44,9 @@ public class SignupBackgroundActivity extends AsyncTask {
             BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             StringBuffer sb = new StringBuffer("");
             String line="";
-            line = in.readLine();line = in.readLine();// pour supprimer les db_conf en attendant de trouver mieux
+            Log.e("debug : ligne 1",line);
+            line = in.readLine();// pour supprimer les db_conf en attendant de trouver mieux
+
             while ((line = in.readLine()) != null) {
                 sb.append(line);
 
