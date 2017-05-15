@@ -183,12 +183,14 @@ public class MainUserActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext()," L'application n'a pas accès à votre position ", Toast.LENGTH_LONG).show();
             Log.e("debug : latitude2test","check ");
 
-            location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 200);
+
+           /* location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             latitude = String.valueOf(location.getLatitude());
-            Log.e("debug : latitude2test",latitude);
+            Log.e("debug : latitude2test",latitude);*/
 
         }
-        else {
+        //else {
             //recuperation des données transmise par le gps
             location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             latitude = String.valueOf(location.getLatitude());
@@ -199,7 +201,7 @@ public class MainUserActivity extends AppCompatActivity {
             //envoie des données a la base
             AsyncTask AT = new UpdateProfilBackground(this).execute("Localisation", user.getId(), longitude, latitude, altitude);
             String S = (String) AT.get();
-        }
+        //}
 
     }
 

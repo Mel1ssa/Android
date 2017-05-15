@@ -130,7 +130,8 @@ public class UpdateProfilBackground extends AsyncTask {
                 }
                 break;
             case "Recherche":
-                link = "http://10.127.209.87/android/GetUsersByDistance.php?Pseudo=" + username;
+                //link = "http://10.127.209.87/android/GetUsersByDistance.php?Pseudo=" + username;
+                link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/GetUsersByDistance_PDO.php?Id=" + objects[1];
                 try {
                     URL url = new URL(link);
                     HttpClient client = new DefaultHttpClient();
@@ -141,7 +142,7 @@ public class UpdateProfilBackground extends AsyncTask {
                     BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
                     StringBuffer sb = new StringBuffer("");
                     String line = "";
-                    line = in.readLine();line = in.readLine();
+                    line = in.readLine();
                     while ((line = in.readLine()) != null) {
                         sb.append(line);
 
@@ -151,7 +152,6 @@ public class UpdateProfilBackground extends AsyncTask {
                     //JSON Parsing
                     JSONObject jObject = new JSONObject(res);
                     int success = jObject.getInt("success");
-
                     if (success == 1) {
                         JSONArray ids = jObject.getJSONArray("utilisateurs");
                         String retour ="";
@@ -173,7 +173,8 @@ public class UpdateProfilBackground extends AsyncTask {
             }
                 break;
             case "RecupUsers":
-                link = "http://10.127.209.87/android/getUsersById.php?id=" + objects[1];
+                //link = "http://10.127.209.87/android/getUsersById.php?id=" + objects[1];
+                link =  "http://nicolasdke.cluster023.hosting.ovh.net/seemy/getUsersById_PDO.php?id=" + objects[1];
                 Map<String, Object> ret = new HashMap<String, Object>();
                 try {
                     URL url = new URL(link);
@@ -185,7 +186,7 @@ public class UpdateProfilBackground extends AsyncTask {
                     BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
                     StringBuffer sb = new StringBuffer("");
                     String line = "";
-                    line = in.readLine();line = in.readLine();
+                    line = in.readLine();
                     while ((line = in.readLine()) != null) {
                         sb.append(line);
 
@@ -197,6 +198,7 @@ public class UpdateProfilBackground extends AsyncTask {
                     int success = jObject.getInt("success");
 
                     if (success == 1) {
+                        Log.e("recup user","ty");
                         ret.put("success",Integer.toString(success));
                         JSONArray user = jObject.getJSONArray("utilisateur");
                         String retour =" ";

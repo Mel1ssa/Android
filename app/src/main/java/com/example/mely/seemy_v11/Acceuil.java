@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ public class Acceuil extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
     {
         List<Map<String, Object>> userList = new ArrayList<Map<String, Object>>();
-        AsyncTask AT=  new UpdateProfilBackground(getActivity()).execute("Recherche",user.getPseudo()); // recup les users aux alentours
+        AsyncTask AT=  new UpdateProfilBackground(getActivity()).execute("Recherche",user.getId()); // recup les users aux alentours
 
         try
         {
@@ -37,12 +38,13 @@ public class Acceuil extends ListFragment {
 
             for(String id : ids)
             {
+                Log.e("success reperage",id);
                 AT = new UpdateProfilBackground(getActivity()).execute("RecupUsers", id); // recup les infos de chaque user
                 Map<String, Object> usrs = (Map<String, Object>) AT.get();
 
                 if(Integer.parseInt((String) usrs.get("success"))==1)
                 {
-                    AsyncTask AT2=  new InfoProfilBackgroundActivity(getActivity()).execute(usrs.get("Pseudo")); // recup les tags
+                    AsyncTask AT2=  new InfoProfilBackgroundActivity(getActivity()).execute(id); // recup les tags
                     String S2 = (String) AT2.get();
                     S2=S2.replace(" "," #"); // affiche le # car en bd le tag ne possède pas de #
                     usrs.put("Tags",S2);
