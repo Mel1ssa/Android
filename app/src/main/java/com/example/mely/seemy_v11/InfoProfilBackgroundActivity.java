@@ -74,7 +74,7 @@ public class InfoProfilBackgroundActivity extends AsyncTask {
 
             }
             else
-                return null;
+                return "";
 
         } catch (Exception e) {
             e.printStackTrace();

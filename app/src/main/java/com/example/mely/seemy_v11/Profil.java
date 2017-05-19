@@ -146,7 +146,7 @@ public class Profil extends Fragment implements View.OnClickListener {
                             if (!_tag.getText().toString().equals("")) {
                                 edt_tags.append(" #" + _tag.getText().toString());
                                 //Ajoute le tag a la bd
-                                AsyncTask AT = new UpdateProfilBackground(getActivity()).execute( "Tag",user.getPseudo(), _tag.getText().toString());
+                                AsyncTask AT = new UpdateProfilBackground(getActivity()).execute( "Tag",user.getId(), _tag.getText().toString());
                                 user.add_Tag(_tag.getText().toString());
                                 //raz ddu champ tag
                                 _tag.setText("");
@@ -190,11 +190,11 @@ public class Profil extends Fragment implements View.OnClickListener {
             public void onClick(DialogInterface dialog, int id) {
                 //maj de la base de donnée
                 if(!select.equals("Aucun")){
-                    AsyncTask AT=  new UpdateProfilBackground(getActivity()).execute("Distance",user.getPseudo(),select);
+                    AsyncTask AT=  new UpdateProfilBackground(getActivity()).execute("Distance",user.getId(),select);
                     user.setDist(select);
                 }
                 else{
-                    AsyncTask AT=  new UpdateProfilBackground(getActivity()).execute("Distance",user.getPseudo(),"0");
+                    AsyncTask AT=  new UpdateProfilBackground(getActivity()).execute("Distance",user.getId(),"0");
                     user.setDist("0");
                 }
 

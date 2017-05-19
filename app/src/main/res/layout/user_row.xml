@@ -81,7 +81,7 @@
 
 
    </LinearLayout>
-
+<!--
         <ImageButton
             android:id="@+id/notif"
             android:layout_gravity="right"
@@ -90,6 +90,6 @@
             android:hint="Inviter à boir un café"
             android:src="@drawable/coffeecup"
             android:layout_height="10dp"
-            android:layout_width="10dp" />
+            android:layout_width="10dp" /> -->
     </LinearLayout>
 </RelativeLayout>

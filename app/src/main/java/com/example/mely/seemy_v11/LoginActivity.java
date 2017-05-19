@@ -90,9 +90,11 @@ public class LoginActivity extends AppCompatActivity {
             //recup les tags
             AsyncTask AT2=  new InfoProfilBackgroundActivity(this).execute(S.get("Id"));
             String S2 = (String) AT2.get();
-            Log.e("debug : coucou",S2);
-            String[] Tags= S2.split(" ");
-            user.setTags(Tags);
+            if(S2.length()>0) {
+                Log.e("debug : coucou", S2);
+                String[] Tags = S2.split(" ");
+                user.setTags(Tags);
+            }
 
             // intent vers la page d'acceuil
             Intent intent = new Intent(getApplicationContext(), MainUserActivity.class);

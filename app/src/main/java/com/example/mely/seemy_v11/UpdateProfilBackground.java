@@ -38,8 +38,9 @@ public class UpdateProfilBackground extends AsyncTask {
 
         switch (cas) {
             case "Tag":
+                String id= (String) objects[1];
                 String tag = (String) objects[2];
-                String link = "http://10.127.209.87/android/insert_user_tag.php?Pseudo=" + username + "&Contenu_tag=" + tag;
+                String link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/insert_tag_PDO.php?Id=" + id + "&Contenu_tag=" + tag;
 
                 try {
                     URL url = new URL(link);
@@ -67,9 +68,10 @@ public class UpdateProfilBackground extends AsyncTask {
                 }
                 break;
             case "Distance":
+                id= (String) objects[1];
                 String distance = (String) objects[2];
-                 link = "http://10.127.209.87/android/updateDistance.php?Pseudo="+username+"&Distance_param="+Integer.parseInt(distance);
-
+                // link = "http://10.127.209.87/android/updateDistance.php?Pseudo="+username+"&Distance_param="+Integer.parseInt(distance);
+                    link="http://nicolasdke.cluster023.hosting.ovh.net/seemy/UpdateDistance_PDO.php?Id="+id+"&Distance_param="+Integer.parseInt(distance);
                 try {
                     URL url = new URL(link);
                     HttpClient client = new DefaultHttpClient();
@@ -158,7 +160,7 @@ public class UpdateProfilBackground extends AsyncTask {
 
                         for (int i = 0; i < ids.length(); i++) {
 
-                            String id = (String) ids.get(i);
+                             id = (String) ids.get(i);
                             retour = retour + id + " ";
                         }
                         return retour;
