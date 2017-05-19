@@ -181,27 +181,22 @@ public class MainUserActivity extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             Toast.makeText(getBaseContext()," L'application n'a pas accès à votre position ", Toast.LENGTH_LONG).show();
-            Log.e("debug : latitude2test","check ");
+
 
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 200);
 
-           /* location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            latitude = String.valueOf(location.getLatitude());
-            Log.e("debug : latitude2test",latitude);*/
 
         }
-        //else {
-            //recuperation des données transmise par le gps
+
             location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             latitude = String.valueOf(location.getLatitude());
             longitude = String.valueOf(location.getLongitude());
             altitude = String.valueOf(location.getAltitude());
 
-            Log.e("debug : latitude : ", latitude);
             //envoie des données a la base
             AsyncTask AT = new UpdateProfilBackground(this).execute("Localisation", user.getId(), longitude, latitude, altitude);
             String S = (String) AT.get();
-        //}
+
 
     }
 
