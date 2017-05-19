@@ -226,6 +226,36 @@ public class UpdateProfilBackground extends AsyncTask {
                     Log.e("error log", e.getMessage());
                 }
                 break;
+            case "Deconnexion":
+                id= (String) objects[1];
+                // link = "http://10.127.209.87/android/updateDistance.php?Pseudo="+username+"&Distance_param="+Integer.parseInt(distance);
+                Log.e("Back",id);
+                link="http://nicolasdke.cluster023.hosting.ovh.net/seemy/Deconnexion_PDO.php?Id="+id;
+
+                try {
+                    URL url = new URL(link);
+                    HttpClient client = new DefaultHttpClient();
+                    HttpGet request = new HttpGet();
+                    request.setURI(new URI(link));
+                    HttpResponse response = client.execute(request);
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                    StringBuffer sb = new StringBuffer("");
+                    String line = "";
+
+                    while ((line = in.readLine()) != null) {
+                        sb.append(line);
+
+                    }
+                    String res = sb.toString();
+                    in.close();
+                    return res;
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e("error", e.getMessage());
+                }
+                break;
 
         }
 return  null;

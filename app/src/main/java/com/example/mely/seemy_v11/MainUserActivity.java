@@ -108,7 +108,7 @@ public class MainUserActivity extends AppCompatActivity {
                 fragment = new Messages();
                 break;
             case 3:
-                fragment = new Deconnexion();
+                fragment = new Deconnexion(user.getId());
                 break;
 
             default:
