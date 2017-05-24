@@ -47,6 +47,19 @@
         android:typeface="sans" />
         <TextView
 
+            android:id="@+id/hidden_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/user_profile_name"
+            android:layout_marginLeft="75dip"
+            android:layout_centerVertical="true"
+            android:paddingBottom ="10dip"
+            android:textColor="@android:color/transparent"
+            android:typeface="sans" />
+
+
+        <TextView
+
         android:id="@+id/user_profile_short_bio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

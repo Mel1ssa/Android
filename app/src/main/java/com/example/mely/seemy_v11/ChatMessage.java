@@ -8,6 +8,23 @@ public class ChatMessage {
 	public boolean side;
 	public String message;
 
+	public boolean isSide() {
+		return side;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public void setSide(boolean side) {
+		this.side = side;
+
+	}
+
 	public ChatMessage(boolean side , String message) {
 
 		super();

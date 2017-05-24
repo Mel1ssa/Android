@@ -105,7 +105,7 @@ public class MainUserActivity extends AppCompatActivity {
                 fragment = new Profil(user);
                 break;
             case 2:
-                fragment = new Messages();
+                fragment = new Messages(user);
                 break;
             case 3:
                 fragment = new Deconnexion(user.getId());

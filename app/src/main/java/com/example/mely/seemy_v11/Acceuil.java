@@ -65,10 +65,10 @@ public class Acceuil extends ListFragment {
         }
 
         // Clés utilisées dans la  Hashmap ( InfoProfilBackground)
-        String[] from = {"Pseudo", "Age", "Sexe", "Tags"};
+        String[] from = {"Pseudo", "Age", "Sexe", "Tags", "Id"};
 
         // les items dans lequels les valeurs de hashmap seront placés
-        int[] to = {R.id.user_profile_name, R.id.user_age, R.id.user_photo, R.id.user_profile_short_bio};
+        int[] to = {R.id.user_profile_name, R.id.user_age, R.id.user_photo, R.id.user_profile_short_bio,R.id.hidden_id};
 
         //placer la liste dans un SimpleAdapter
         SimpleAdapter adapter = new SimpleAdapter(getActivity().getBaseContext(), userList, R.layout.user_row, from, to);
@@ -83,11 +83,20 @@ public class Acceuil extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int pos, long row) {
         Intent in = new Intent(getActivity(),MessageClass.class);
-        Log.e("info",l.getItemAtPosition(pos).toString());
+
+        //pseudo du recepteur pour l'afficher
         String m[]=l.getItemAtPosition(pos).toString().split("Pseudo=");
+        String p[]= m[1].split(",");
 
+        in.putExtra("LOGIN",p[0]);
 
-        in.putExtra("LOGIN",m[1].substring(0,m[1].length()-1));
+        //id du recepteur pour la requete sql
+        String  n[] =l.getItemAtPosition(pos).toString().split("Id=");
+
+         p= n[1].split(",");
+        in.putExtra("ID_RECEP",p[0]);
+        // id de l'emetteur
+        in.putExtra("ID_EMET",user.getId());
         startActivity(in);
 
     }

@@ -87,7 +87,6 @@ public class SignupActivity extends AppCompatActivity {
         if(_F.isChecked() )
             sexe="F";
         else
-        if(_H.isChecked())
             sexe="H";
 
         //création du compte en bd avec les infos si dessus

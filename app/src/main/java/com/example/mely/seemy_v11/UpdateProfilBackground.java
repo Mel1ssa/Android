@@ -200,13 +200,13 @@ public class UpdateProfilBackground extends AsyncTask {
                     int success = jObject.getInt("success");
 
                     if (success == 1) {
-                        Log.e("recup user","ty");
                         ret.put("success",Integer.toString(success));
                         JSONArray user = jObject.getJSONArray("utilisateur");
-                        String retour =" ";
+
 
                         for (int i = 0; i < user.length(); i++) {
                             JSONObject obj= user.getJSONObject(i);
+                            ret.put("Id",obj.getString("Id"));
                             ret.put("Pseudo",obj.getString("Pseudo"));
                             ret.put("Age",obj.getString("Age")+" ans");
                             if(obj.getString("Sexe").equals("H"))
