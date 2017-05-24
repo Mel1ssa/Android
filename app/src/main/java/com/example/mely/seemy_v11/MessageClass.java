@@ -1,5 +1,6 @@
 package com.example.mely.seemy_v11;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -48,6 +49,8 @@ public class MessageClass  extends AppCompatActivity{
 
     private boolean sendChatMessage(){
         adp.add(new ChatMessage(side, chatText.getText().toString()));
+        AsyncTask AT2=  new MessageBackground(this).execute(chatText.getText().toString());
+
         chatText.setText("");// raz du champs de text
         return true;
     }

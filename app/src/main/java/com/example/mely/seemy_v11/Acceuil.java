@@ -83,8 +83,9 @@ public class Acceuil extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int pos, long row) {
         Intent in = new Intent(getActivity(),MessageClass.class);
-
+        Log.e("info",l.getItemAtPosition(pos).toString());
         String m[]=l.getItemAtPosition(pos).toString().split("Pseudo=");
+
 
         in.putExtra("LOGIN",m[1].substring(0,m[1].length()-1));
         startActivity(in);
