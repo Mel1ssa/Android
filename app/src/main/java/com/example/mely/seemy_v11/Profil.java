@@ -15,12 +15,14 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -42,6 +44,7 @@ public class Profil extends Fragment implements View.OnClickListener {
     String imgDecodableString;
     @Bind(R.id.user_profile_photo)ImageButton _profileImg;
     @Bind(R.id.btn_add_distance)Button _addDistance;
+
     @Bind(R.id.btn_add_tags)Button _addTags;
     TextView edt_tags;
     String select;
@@ -53,23 +56,18 @@ public class Profil extends Fragment implements View.OnClickListener {
         edt.setText(user.getPseudo());
         edt_tags = (TextView) rootView.findViewById(R.id.user_profile_short_bio);
         //affichage des tags
-        if(user.getTags()!=null) {
-            String t="";
-            for(String s : user.getTags())
-                t=t+"#"+s+" ";
-            edt_tags.setText(t);
-        }
+        this.setTags();
 
         //affichage de la photo de profil selon le sexe
-        ImageButton imB = (ImageButton)rootView.findViewById(R.id.user_profile_photo);
+        ImageView imB = (ImageView) rootView.findViewById(R.id.user_profile_photo);
         if(user.getSexe().equals("H"))
             imB.setImageResource(R.drawable.user_male);
         else
             imB.setImageResource(R.drawable.user_female);
 
         //appel a la même méthode onclick selon le bouton
-
-        imB.setOnClickListener(this);
+        Button suppTags=(Button)rootView.findViewById(R.id.btn_supp_tag);
+        suppTags.setOnClickListener(this);
 
         Button addTags = (Button)rootView.findViewById(R.id.btn_add_tags);
         addTags.setOnClickListener(this);
@@ -93,6 +91,9 @@ public class Profil extends Fragment implements View.OnClickListener {
             case R.id.btn_add_distance:
                 this.openCheckDistance();
                 break;
+            case R.id.btn_supp_tag:
+                this.openCheckDeleteTags();
+                break;
         }
     }
 
@@ -104,8 +105,8 @@ public class Profil extends Fragment implements View.OnClickListener {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Toast.makeText(getActivity(),"Text2!",Toast.LENGTH_SHORT).show();
-        super.onActivityResult(requestCode, resultCode, data);Toast.makeText(getActivity(),"Text3",Toast.LENGTH_SHORT).show();
+
+        super.onActivityResult(requestCode, resultCode, data);
         //Detects request codes
         if (requestCode == RESULT_LOAD_IMG && resultCode == Activity.RESULT_OK) {
             Uri selectedImage = data.getData();
@@ -119,7 +120,15 @@ public class Profil extends Fragment implements View.OnClickListener {
 
 
     }
-
+    private void setTags(){
+        if(user.getTags()!=null) {
+            String t="";
+            for(String s : user.getTags())
+                if(!s.equals(""))
+                    t=t+"#"+s+" ";
+            edt_tags.setText(t);
+        }
+    }
 
     private void openDialog(){
         LayoutInflater inflater = LayoutInflater.from(getActivity());
@@ -197,6 +206,64 @@ public class Profil extends Fragment implements View.OnClickListener {
                     AsyncTask AT=  new UpdateProfilBackground(getActivity()).execute("Distance",user.getId(),"0");
                     user.setDist("0");
                 }
+
+            }
+        }).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+            // ne fait rien si on annule
+            @Override
+            public void onClick(DialogInterface dialog, int which) {}
+
+        });
+        //affichage
+        dialog = builder.create();
+        dialog.show();
+
+    }
+
+    private void openCheckDeleteTags(){
+        Dialog dialog;
+        final CharSequence[] items= new CharSequence[user.getTags().size()];
+
+        for(int i=0;i<user.getTags().size();i++){
+
+            items[i]= (CharSequence) user.getTags().get(i) ;
+
+
+        }
+
+        final ArrayList itemsSelected = new ArrayList();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Choisissez les tags à supprimer: ");
+        Log.e("testitem","debug1 taille item ="+items.length);
+        builder.setMultiChoiceItems(items, null,
+                new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which,
+                                        boolean isChecked) {
+                        if (isChecked) {
+                            // If the user checked the item, add it to the selected items
+                            itemsSelected.add(which);
+                        } else if (itemsSelected.contains(which)) {
+                            // Else, if the item is already in the array, remove it
+                            itemsSelected.remove(Integer.valueOf(which));
+                        }
+                    }
+
+        }).setPositiveButton("Supprimer", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                //maj de la base de donnée
+
+                   for(int i=0;i<itemsSelected.size();i++){
+                       Log.e("item g", (String) items[(int) itemsSelected.get(i)]);
+                       AsyncTask AT = new UpdateProfilBackground(getActivity()).execute("SuppTag", user.getId(), (String) items[(int) itemsSelected.get(i)]);
+                       user.remove_Tag((String) items[(int) itemsSelected.get(i)]);
+
+                   }
+                setTags();
+                Toast.makeText(getActivity(),"Elements supprimés",Toast.LENGTH_SHORT).show();
+
 
             }
         }).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {

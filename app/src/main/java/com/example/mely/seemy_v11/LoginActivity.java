@@ -11,6 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import butterknife.Bind;
@@ -91,9 +96,11 @@ public class LoginActivity extends AppCompatActivity {
             AsyncTask AT2=  new InfoProfilBackgroundActivity(this).execute(S.get("Id"));
             String S2 = (String) AT2.get();
             if(S2.length()>0) {
-                Log.e("debug : coucou", S2);
+
                 String[] Tags = S2.split(" ");
-                user.setTags(Tags);
+                List<String> AL = new ArrayList<>();
+                Collections.addAll(AL, Tags);
+                user.setTags((ArrayList<String>) AL);
             }
 
             // intent vers la page d'acceuil

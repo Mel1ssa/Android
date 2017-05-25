@@ -63,7 +63,7 @@ public class InfoProfilBackgroundActivity extends AsyncTask {
                 Log.e("debug : ligne tag","su");
                 JSONArray tags = jObject.getJSONArray("tag");
 
-                String retour =" ";
+                String retour ="";
 
                 for (int i = 0; i < tags.length(); i++) {
                     JSONObject obj= tags.getJSONObject(i);

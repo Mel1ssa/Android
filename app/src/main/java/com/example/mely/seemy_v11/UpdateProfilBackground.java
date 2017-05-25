@@ -67,6 +67,36 @@ public class UpdateProfilBackground extends AsyncTask {
                     Log.e("error", e.getMessage());
                 }
                 break;
+            case "SuppTag":
+                id= (String) objects[1];
+                tag = (String) objects[2];
+                link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/delete_tag_PDO.php?id=" + id + "&tag=" + tag;
+
+                try {
+                    URL url = new URL(link);
+                    HttpClient client = new DefaultHttpClient();
+                    HttpGet request = new HttpGet();
+                    request.setURI(new URI(link));
+                    HttpResponse response = client.execute(request);
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                    StringBuffer sb = new StringBuffer("");
+                    String line = "";
+
+                    while ((line = in.readLine()) != null) {
+                        sb.append(line);
+
+                    }
+                    String res = sb.toString();
+                    //verif if success !
+                    in.close();
+                    return res;
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e("error", e.getMessage());
+                }
+                break;
             case "Distance":
                 id= (String) objects[1];
                 String distance = (String) objects[2];

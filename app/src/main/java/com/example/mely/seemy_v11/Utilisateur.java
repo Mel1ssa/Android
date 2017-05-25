@@ -1,5 +1,8 @@
 package com.example.mely.seemy_v11;
+import android.nfc.Tag;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by MELY on 5/5/2017.
@@ -11,7 +14,7 @@ public class Utilisateur implements Serializable {
     private String Sexe;
     private String Age;
     private String Dist;
-    private String[] Tags;
+    private ArrayList<String> Tags;
 
     public  Utilisateur(String Id, String Pseudo, String Sexe, String Age, String Dist){
         this.Id=Id;
@@ -41,12 +44,23 @@ public class Utilisateur implements Serializable {
         return Dist;
     }
 
-    public String[] getTags() {
+    public ArrayList<String> getTags() {
         return Tags;
     }
 
     public void add_Tag(String tag){
-        this.Tags[this.Tags.length-1]=tag;
+        this.Tags.add(tag);
+
+    }
+    public void remove_Tag(String tag){
+        for (int i = 0; i <this.Tags.size(); i++)
+        {
+            if (Tags.get(i).equals(tag))
+            {
+                Tags.remove(Tags.get(i));
+                break;
+            }
+        }
 
     }
     public void setId(String id) {
@@ -69,7 +83,7 @@ public class Utilisateur implements Serializable {
         Dist = dist;
     }
 
-    public void setTags(String[] tags) {
+    public void setTags(ArrayList<String> tags) {
         Tags = tags;
     }
 
