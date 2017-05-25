@@ -8,8 +8,11 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -24,10 +27,13 @@ public class MessageClass  extends AppCompatActivity{
     private EditText chatText;
     private TextView user;
     private Button send;
+    private ImageButton ref;
+    private ImageView im_sexe;
     private boolean side = false;
 
     String id_recep;
     String id_emet;
+    String sexe;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,12 +41,20 @@ public class MessageClass  extends AppCompatActivity{
         String pseudo =  getIntent().getStringExtra("LOGIN");
         id_recep = getIntent().getStringExtra("ID_RECEP");
         id_emet = getIntent().getStringExtra("ID_EMET");
+        sexe=getIntent().getStringExtra("SEXE");
+
+
         user = (TextView)findViewById(R.id.user_profile_name);
         user.setText(pseudo);
         listeV = (ListView)findViewById(R.id.listview);
         chatText =(EditText)findViewById(R.id.chat_text);
         send =(Button)findViewById(R.id.btn);
-
+        ref = (ImageButton)findViewById(R.id.refresh_msg);
+        im_sexe = (ImageView)findViewById(R.id.user_profile_photo);
+        if(sexe.equals("2130837634"))
+            im_sexe.setImageResource(R.drawable.user_male);
+        else
+            im_sexe.setImageResource(R.drawable.user_female);
         adp = new ChatArrayAdapter(getApplicationContext(), R.layout.chat_row);
         listeV.setAdapter(adp);
         try {
@@ -54,9 +68,24 @@ public class MessageClass  extends AppCompatActivity{
                 sendChatMessage();
             }
         });
+        ref.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                try {
+                    receivChatMessage();
+                    Toast.makeText(getBaseContext(), "Discussion à jour", Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+
+        });
 
         listeV.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL); // garde le dernier message visible
         listeV.setAdapter(adp);
+
 
     }
 

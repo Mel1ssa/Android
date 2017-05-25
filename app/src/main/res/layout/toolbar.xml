@@ -18,4 +18,8 @@
         android:hint="Mettre à jour ma position"
         android:src="@drawable/gps" />
 
+
+
+
+
 </android.support.v7.widget.Toolbar>
