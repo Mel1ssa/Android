@@ -161,7 +161,9 @@ public class MainUserActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                try {localise();} catch (Exception e) {e.printStackTrace();}}
+                try {localise();
+                    Toast.makeText(getBaseContext(), "Localisation à jour", Toast.LENGTH_LONG).show();}
+                catch (Exception e) {e.printStackTrace();}}
         });
     }
 
