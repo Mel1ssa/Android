@@ -18,8 +18,8 @@
 
             android:id="@+id/user_photo"
             android:contentDescription="@string/app_name"
-            android:layout_width="60dip"
-            android:layout_height="60dip"
+            android:layout_width="80dip"
+            android:layout_height="100dip"
             android:src="@drawable/profil" />
     <LinearLayout
 
@@ -38,9 +38,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/user_profile_photo"
-        android:layout_marginLeft="75dip"
+
         android:layout_centerVertical="true"
-        android:paddingBottom ="10dip"
+
         android:textColor="#040404"
         android:textSize="25dip"
         android:textStyle="bold"
@@ -51,9 +51,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/user_profile_name"
-            android:layout_marginLeft="75dip"
+
             android:layout_centerVertical="true"
-            android:paddingBottom ="10dip"
+
             android:textColor="@android:color/transparent"
             android:typeface="sans" />
 
@@ -64,8 +64,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/user_profile_name"
-        android:layout_alignLeft="@+id/user_profile_name"
-        android:paddingTop="5dip"
+
+
         android:layout_centerHorizontal="true"
         android:textColor="#343434"
         android:textSize="15dip" />
@@ -80,29 +80,9 @@
             android:layout_centerHorizontal="true"
             android:textColor="#343434"
             android:textSize="15dip" />
-        <TextView
 
-            android:id="@+id/user_sexe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/user_profile_name"
-            android:layout_alignLeft="@+id/user_profile_name"
-            android:paddingTop="5dip"
-            android:layout_centerHorizontal="true"
-            android:textColor="#343434"
-            android:textSize="15dip" />
 
 
    </LinearLayout>
-<!--
-        <ImageButton
-            android:id="@+id/notif"
-            android:layout_gravity="right"
-            android:layout_marginLeft="8dp"
-            android:background="?selectableItemBackground"
-            android:hint="Inviter à boir un café"
-            android:src="@drawable/coffeecup"
-            android:layout_height="10dp"
-            android:layout_width="10dp" /> -->
     </LinearLayout>
 </RelativeLayout>

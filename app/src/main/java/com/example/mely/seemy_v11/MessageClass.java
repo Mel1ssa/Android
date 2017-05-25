@@ -51,10 +51,13 @@ public class MessageClass  extends AppCompatActivity{
         send =(Button)findViewById(R.id.btn);
         ref = (ImageButton)findViewById(R.id.refresh_msg);
         im_sexe = (ImageView)findViewById(R.id.user_profile_photo);
-        if(sexe.equals("2130837634"))
-            im_sexe.setImageResource(R.drawable.user_male);
-        else
-            im_sexe.setImageResource(R.drawable.user_female);
+        if(sexe!=null){
+            if(sexe.equals("2130837634") || sexe.equals("2130837633"))
+                im_sexe.setImageResource(R.drawable.user_male);
+            else
+                im_sexe.setImageResource(R.drawable.user_female);
+        }
+
         adp = new ChatArrayAdapter(getApplicationContext(), R.layout.chat_row);
         listeV.setAdapter(adp);
         try {

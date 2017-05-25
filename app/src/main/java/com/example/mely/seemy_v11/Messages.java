@@ -16,6 +16,8 @@ import android.widget.SimpleAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by MELY on 4/17/2017.
@@ -64,6 +66,18 @@ public class Messages extends ListFragment {
     public void onListItemClick(ListView l, View v, int pos, long row) {
         Intent in = new Intent(getActivity(),MessageClass.class);
         Log.e("info",l.getItemAtPosition(pos).toString());
+        // compilation de la regex
+        Pattern pt = Pattern.compile(".*sexe=(\\d*)[ |,|}].*id=(\\d*)[ |,|}].*pseudo=(.*)[ |,|}]");
+        // création d'un moteur de recherche
+        Matcher ma = pt.matcher(l.getItemAtPosition(pos).toString());
+        // lancement de la recherche de toutes les occurrences
+        boolean b = ma.matches();
+
+        in.putExtra("ID_RECEP",ma.group(2));
+        in.putExtra("SEXE",ma.group(1));
+        in.putExtra("LOGIN",ma.group(3));
+        in.putExtra("ID_EMET",user.getId());
+        /*
         //pseudo du recepteur pour l'afficher
         String m[]=l.getItemAtPosition(pos).toString().split("pseudo=");
         String p[]= m[1].split(",");
@@ -78,7 +92,7 @@ public class Messages extends ListFragment {
         p= n[1].split(",");
         in.putExtra("ID_RECEP",p[0]);
         // id de l'emetteur
-        in.putExtra("ID_EMET",user.getId());
+        in.putExtra("ID_EMET",user.getId()); */
         startActivity(in);
 
     }
