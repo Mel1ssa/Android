@@ -18,7 +18,7 @@
                 android:id="@+id/myTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ces personnes sont près de vous"
+                android:text="@string/personnesproches"
                 android:maxHeight="15dp"/>
 
         </LinearLayout>

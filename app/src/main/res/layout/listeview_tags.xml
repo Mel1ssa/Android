@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Ajout des tags dan sla fenetre de dialogue-->
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
@@ -8,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tag :"/>
+        android:text="@string/tag"/>
 
     <EditText
         android:id="@+id/EditTag"
@@ -17,10 +19,5 @@
         android:layout_height="wrap_content">
         <requestFocus />
         </EditText>
-
-
-
-
-
 
 </LinearLayout>

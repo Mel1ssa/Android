@@ -18,6 +18,30 @@
     <string name="echec">Failed Login</string>
     <string name="supper">Great !</string>
     <string name="errorValue">alphanumeric only (4-20)</string>
-    <string name="Tag">Modifier ses tags</string>
-    <string name="Distance">Modifier la distance</string>
+    <string name="Tag">Change my tags</string>
+    <string name="Distance">Change distance parameter</string>
+    <string name="envoyer">Send</string>
+    <string name="majpos">Update my position</string>
+    <string name="tag">Tag</string>
+    <string name="personnesdiscuss">You talked with these people</string>
+    <string name="Notag">You have no tags</string>
+    <string name="supptag">Delete tags</string>
+    <string name="majpos2">Update my position</string>
+
+    <!-- new-->
+
+    <string name="existe">This login already exists</string>
+    <string name="title_activity_main_user">MainUserActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="personnesproches">This people are close to you</string>
+
+
+    <string-array name="navigation_items">
+        <item>Home</item>
+        <item>Profil</item>
+        <item>Messages</item>
+        <item>Logout</item>
+    </string-array>
 </resources>

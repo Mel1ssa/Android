@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="5dip" >
-    <!-- ListRow Left side Thumbnail image -->
+
     <LinearLayout
 
         android:id="@+id/ll1"
@@ -38,39 +38,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/user_profile_photo"
-
         android:layout_centerVertical="true"
-
         android:textColor="#040404"
         android:textSize="25dip"
         android:textStyle="bold"
         android:typeface="sans" />
-        <TextView
 
+        <TextView
             android:id="@+id/hidden_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/user_profile_name"
-
             android:layout_centerVertical="true"
-
             android:textColor="@android:color/transparent"
             android:typeface="sans" />
 
-
         <TextView
-
         android:id="@+id/user_profile_short_bio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/user_profile_name"
-
-
         android:layout_centerHorizontal="true"
         android:textColor="#343434"
         android:textSize="15dip" />
-        <TextView
 
+        <TextView
             android:id="@+id/user_age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,8 +72,6 @@
             android:layout_centerHorizontal="true"
             android:textColor="#343434"
             android:textSize="15dip" />
-
-
 
    </LinearLayout>
     </LinearLayout>

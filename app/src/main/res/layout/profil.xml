@@ -31,7 +31,6 @@
             android:layout_below="@+id/user_profile_photo"
             android:elevation="4dp"
             android:paddingBottom="24dp">
-            <!--android:background="#FCD2B7" -->
 
          <TextView
                 android:id="@+id/user_profile_name"
@@ -39,7 +38,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="76dp"
-                android:text=""
                 android:textColor="#fff"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -51,8 +49,7 @@
                 android:layout_below="@+id/user_profile_name"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:hint="Vous ne possédez aucun tag"
-                android:text=""
+                android:hint="@string/Notag"
                 android:textColor="#fff"
                 android:textSize="14sp" />
             <View
@@ -106,7 +103,7 @@
                     android:padding="12dp"
                     android:layout_marginBottom="75dp"
                     android:layout_gravity="center_horizontal"
-                    android:text="Supprimer des tags"/>
+                    android:text="@string/supptag"/>
             </LinearLayout>
 
 

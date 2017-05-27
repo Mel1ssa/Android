@@ -37,9 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/user_profile_photo"
-
                 android:layout_centerVertical="true"
-
                 android:textColor="#040404"
                 android:textSize="25dip"
                 android:textStyle="bold"
@@ -49,9 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/user_profile_name"
-
                 android:layout_centerVertical="true"
-
                 android:textColor="@android:color/transparent"
                 android:typeface="sans" />
 
@@ -61,8 +57,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/user_profile_name"
-
-                android:text="Dernier message"
                 android:layout_centerHorizontal="true"
                 android:textColor="#343434"
                 android:textSize="15dip" />

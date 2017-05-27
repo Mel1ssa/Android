@@ -17,7 +17,6 @@
             android:layout_margin="6dp"
             android:background="@drawable/bulle_a"
             android:paddingLeft="10dip"
-            android:text="Hello friends"
             android:textColor="@android:color/primary_text_light"
             />
     </LinearLayout>

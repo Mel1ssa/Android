@@ -59,7 +59,7 @@
         <Button
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="Envoyer"
+            android:text="@string/envoyer"
             android:id="@+id/btn"
             android:layout_alignBottom="@+id/chat_text"
             android:layout_alignParentRight="true"
@@ -75,7 +75,7 @@
             android:layout_toLeftOf="@+id/chat_text"
             android:layout_alignParentLeft="true"
             android:background="?selectableItemBackground"
-            android:hint="Mettre à jour ma position"
+            android:hint="@string/majpos"
             android:src="@drawable/refresh" />
 
     </RelativeLayout>
