@@ -1,7 +1,10 @@
 package com.example.mely.seemy_v11;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -72,7 +75,14 @@ public class LoginActivity extends AppCompatActivity {
            _loginButton.setEnabled(true);
             return;
         }
-
+        // verifier que la connexion existe !
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo == null || !networkInfo.isConnected()) {
+            Toast.makeText(getBaseContext(),"Pas de connexion internet", Toast.LENGTH_LONG).show();
+            return;
+        }
         _loginButton.setEnabled(false);
 
         //barre de progression on attendant de vérfier dans la base si l'utilisateur existe

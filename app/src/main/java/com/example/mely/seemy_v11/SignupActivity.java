@@ -1,7 +1,10 @@
 package com.example.mely.seemy_v11;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +45,14 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
+                    // verifier que la connexion existe !
+                    ConnectivityManager connMgr = (ConnectivityManager)
+                            getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+                    if (networkInfo == null || !networkInfo.isConnected()) {
+                        Toast.makeText(getBaseContext(),"Pas de connexion internet", Toast.LENGTH_LONG).show();
+                        return;
+                    }
                     signup();
                 } catch (Exception e) {
                     e.printStackTrace();
