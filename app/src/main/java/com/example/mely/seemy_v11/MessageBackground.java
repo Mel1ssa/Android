@@ -126,7 +126,7 @@ public class MessageBackground extends AsyncTask {
             case "discussion":
                 emetteur = (String) objects[1];
 
-                link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/get_discussion.php?id_emetteur=" + emetteur ;
+                link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/get_discussion2.php?id_emetteur=" + emetteur ;
                 ArrayList<Map<String, Object>> liste = new ArrayList<Map<String, Object>>();
 
                 try {
@@ -151,14 +151,14 @@ public class MessageBackground extends AsyncTask {
                     int success = jObject.getInt("success");
 
                     if (success == 1) {
-                        Log.e("recup user","ty");
+
                         JSONArray user = jObject.getJSONArray("discussion");
 
                         for (int i = 0; i < user.length(); i++) {
                             Map<String, Object> ret = new HashMap<String, Object>();
                             JSONObject obj= user.getJSONObject(i);
                             ret.put("id",obj.getString("id_utilisateur"));
-
+                            ret.put("dernier_msg",obj.getString("dernier_msg"));
                             ret.put("pseudo",obj.getString("pseudo"));
                             if(obj.getString("sexe").equals("H"))
                                 ret.put("sexe",R.drawable.user_male);
@@ -167,7 +167,7 @@ public class MessageBackground extends AsyncTask {
 
                             liste.add(ret);
                         }
-                        Log.e("id user",liste.get(1).toString());
+
                         return liste;
 
                     }

@@ -39,7 +39,7 @@ public class Messages extends ListFragment {
         try {
             AsyncTask AT = new MessageBackground(getActivity()).execute("discussion", user.getId()); // recup les users aux alentours
             userList = (ArrayList<Map<String, Object>> ) AT.get();
-            Log.e("taille discussion",""+userList.size());
+
 
 
         } catch (Exception e) {
@@ -47,10 +47,10 @@ public class Messages extends ListFragment {
         }
 
         // Clés utilisées dans la  Hashmap ( InfoProfilBackground)
-        String[] from = {"pseudo", "sexe","id"};
+        String[] from = {"pseudo", "sexe","id","dernier_msg"};
 
         // les items dans lequels les valeurs de hashmap seront placés
-        int[] to = {R.id.user_profile_name,  R.id.user_photo,R.id.hidden_id};
+        int[] to = {R.id.user_profile_name,  R.id.user_photo,R.id.hidden_id, R.id.user_last_msg};
 
         //placer la liste dans un SimpleAdapter
         SimpleAdapter adapter = new SimpleAdapter(getActivity().getBaseContext(), userList, R.layout.discussion_row, from, to);
@@ -67,7 +67,7 @@ public class Messages extends ListFragment {
         Intent in = new Intent(getActivity(),MessageClass.class);
         Log.e("info",l.getItemAtPosition(pos).toString());
         // compilation de la regex
-        Pattern pt = Pattern.compile(".*sexe=(\\d*)[ |,|}].*id=(\\d*)[ |,|}].*pseudo=(.*)[ |,|}]");
+        Pattern pt = Pattern.compile(".*sexe=(\\d*)[ |,|}].*id=(\\d*)[ |,|}].*pseudo=(.*),.*");
         // création d'un moteur de recherche
         Matcher ma = pt.matcher(l.getItemAtPosition(pos).toString());
         // lancement de la recherche de toutes les occurrences
