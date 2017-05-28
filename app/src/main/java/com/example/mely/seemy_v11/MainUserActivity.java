@@ -15,7 +15,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -124,7 +123,7 @@ public class MainUserActivity extends AppCompatActivity {
             mDrawerLayout.closeDrawer(mDrawerList);
 
         } else {
-            Log.e("MainActivity", "Error in creating fragment");
+            Toast.makeText(getBaseContext(), R.string.error, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -162,7 +161,7 @@ public class MainUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {localise();
-                    Toast.makeText(getBaseContext(), "Localisation à jour", Toast.LENGTH_LONG).show();}
+                    Toast.makeText(getBaseContext(), R.string.localise, Toast.LENGTH_LONG).show();}
                 catch (Exception e) {e.printStackTrace();}}
         });
     }
@@ -178,15 +177,12 @@ public class MainUserActivity extends AppCompatActivity {
         Location location = null;
         String latitude, longitude, altitude;
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Log.e("debug : latitude 1: ","localise");
+
         //vérifie qu'on a accès au gps
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            Toast.makeText(getBaseContext()," L'application n'a pas accès à votre position ", Toast.LENGTH_LONG).show();
-
-
+            Toast.makeText(getBaseContext(),R.string.nopositionaccess, Toast.LENGTH_LONG).show();
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 200);
-
 
         }
 

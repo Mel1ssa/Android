@@ -2,7 +2,6 @@ package com.example.mely.seemy_v11;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -13,7 +12,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.HashMap;
@@ -64,7 +62,6 @@ public class UpdateProfilBackground extends AsyncTask {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("error", e.getMessage());
                 }
                 break;
             case "SuppTag":
@@ -94,14 +91,12 @@ public class UpdateProfilBackground extends AsyncTask {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("error", e.getMessage());
                 }
                 break;
             case "Distance":
                 id= (String) objects[1];
                 String distance = (String) objects[2];
-                // link = "http://10.127.209.87/android/updateDistance.php?Pseudo="+username+"&Distance_param="+Integer.parseInt(distance);
-                    link="http://nicolasdke.cluster023.hosting.ovh.net/seemy/UpdateDistance_PDO.php?Id="+id+"&Distance_param="+Integer.parseInt(distance);
+                link="http://nicolasdke.cluster023.hosting.ovh.net/seemy/UpdateDistance_PDO.php?Id="+id+"&Distance_param="+Integer.parseInt(distance);
                 try {
                     URL url = new URL(link);
                     HttpClient client = new DefaultHttpClient();
@@ -123,7 +118,6 @@ public class UpdateProfilBackground extends AsyncTask {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("error", e.getMessage());
                 }
                 break;
             case "Localisation":
@@ -131,10 +125,8 @@ public class UpdateProfilBackground extends AsyncTask {
                 String longitude = (String) objects[2];
                 String latitude = (String) objects[3];
                 String altitude = (String) objects[4];
-
-                //link = "http://10.127.209.87/android/updateLocalisation.php?Pseudo="+username+"&Longitude="+longitude+"&Latitude="+latitude+"&Altitude="+altitude;
                 link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/updateLocalisation_PDO.php?Id="+Id+"&Longitude="+longitude+"&Latitude="+latitude+"&Altitude="+altitude;
-                Log.d("longitude ",longitude);
+
                 try {
                     URL url = new URL(link);
                     HttpClient client = new DefaultHttpClient();
@@ -146,7 +138,7 @@ public class UpdateProfilBackground extends AsyncTask {
                     StringBuffer sb = new StringBuffer("");
                     String line = "";
                     line = in.readLine();// pour supprimer les db_conf en attendant de trouver mieux
-                    Log.e("debug : ligne tag",line);
+
 
                     while ((line = in.readLine()) != null) {
                         sb.append(line);
@@ -158,11 +150,9 @@ public class UpdateProfilBackground extends AsyncTask {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("error", e.getMessage());
                 }
                 break;
             case "Recherche":
-                //link = "http://10.127.209.87/android/GetUsersByDistance.php?Pseudo=" + username;
                 link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/GetUsersByDistance_PDO.php?Id=" + objects[1];
                 try {
                     URL url = new URL(link);
@@ -201,11 +191,9 @@ public class UpdateProfilBackground extends AsyncTask {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("error log", e.getMessage());
             }
                 break;
             case "RecupUsers":
-                //link = "http://10.127.209.87/android/getUsersById.php?id=" + objects[1];
                 link =  "http://nicolasdke.cluster023.hosting.ovh.net/seemy/getUsersById_PDO.php?id=" + objects[1];
                 Map<String, Object> ret = new HashMap<String, Object>();
                 try {
@@ -253,13 +241,10 @@ public class UpdateProfilBackground extends AsyncTask {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("error log", e.getMessage());
                 }
                 break;
             case "Deconnexion":
                 id= (String) objects[1];
-                // link = "http://10.127.209.87/android/updateDistance.php?Pseudo="+username+"&Distance_param="+Integer.parseInt(distance);
-                Log.e("Back",id);
                 link="http://nicolasdke.cluster023.hosting.ovh.net/seemy/Deconnexion_PDO.php?Id="+id;
 
                 try {
@@ -283,7 +268,6 @@ public class UpdateProfilBackground extends AsyncTask {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("error", e.getMessage());
                 }
                 break;
 

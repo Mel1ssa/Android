@@ -1,5 +1,4 @@
 package com.example.mely.seemy_v11;
-import android.nfc.Tag;
 
 import java.io.Serializable;
 import java.util.ArrayList;

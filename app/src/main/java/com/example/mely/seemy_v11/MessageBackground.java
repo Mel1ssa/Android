@@ -2,8 +2,6 @@ package com.example.mely.seemy_v11;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Message;
-import android.util.Log;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -14,7 +12,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
@@ -41,7 +38,7 @@ public class MessageBackground extends AsyncTask {
                 String message = (String) objects[3];
                 message=message.replace(" ","+");
                 String link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/envoi_message.php?id_emetteur=" + emetteur + "&id_recepteur=" + recepteur + "&message=" + message;
-                Log.e("link",link);
+
                 try {
                     URL url = new URL(link);
 
@@ -62,12 +59,10 @@ public class MessageBackground extends AsyncTask {
 
                     }
                     String res = sb.toString();
-                    Log.e("resultat",res);
                     in.close();
                     //JSON Parsing
                     JSONObject jObject = new JSONObject(res);
                     int success = jObject.getInt("success");
-                    Log.e("resultat success",""+success);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -164,18 +159,14 @@ public class MessageBackground extends AsyncTask {
                                 ret.put("sexe",R.drawable.user_male);
                             else
                                 ret.put("sexe",R.drawable.user_female);
-
                             liste.add(ret);
                         }
-
                         return liste;
-
                     }
                     else
                         return liste;
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("error log", e.getMessage());
                 }
                 break;
         }

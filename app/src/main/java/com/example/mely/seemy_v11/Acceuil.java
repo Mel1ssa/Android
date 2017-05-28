@@ -50,7 +50,7 @@ public class Acceuil extends ListFragment {
             String[] ids = S.split(" ");
 
             for (String id : ids) {
-                Log.e("success reperage", id);
+
                 AT = new UpdateProfilBackground(getActivity()).execute("RecupUsers", id); // recup les infos de chaque user
                 Map<String, Object> usrs = (Map<String, Object>) AT.get();
 
@@ -90,14 +90,12 @@ public class Acceuil extends ListFragment {
         Pattern pt = Pattern.compile(".*Id=(\\d*)[ |,|}].*Sexe=(\\d*)[ |,|}].*Pseudo=(.*)[ |,|}]");
         // création d'un moteur de recherche
         Matcher ma = pt.matcher(l.getItemAtPosition(pos).toString());
-        // lancement de la recherche de toutes les occurrences
-        boolean b = ma.matches();
 
         in.putExtra("ID_RECEP",ma.group(1));
         in.putExtra("SEXE",ma.group(2));
         in.putExtra("LOGIN",ma.group(3));
         in.putExtra("ID_EMET",user.getId());
-
+        startActivity(in);
       /* si ç ane marche pas
 
         //pseudo du recepteur pour l'afficher
@@ -118,7 +116,7 @@ public class Acceuil extends ListFragment {
         p= n[1].split(",");
         in.putExtra("SEXE",p[0]);
         */
-        startActivity(in);
+
 
     }
 

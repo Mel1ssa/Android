@@ -2,7 +2,6 @@ package com.example.mely.seemy_v11;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -46,7 +45,6 @@ public class LoginBackgroundActivity extends AsyncTask {
             BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             StringBuffer sb = new StringBuffer("");
             String line="";
-            Log.e("debug : ligne 1",line);
             line = in.readLine();// pour supprimer les db_conf en attendant de trouver mieux
 
 
@@ -59,15 +57,12 @@ public class LoginBackgroundActivity extends AsyncTask {
             //JSON Parsing
             JSONObject jObject = new JSONObject(res);
             int success = jObject.getInt("success");
-            Log.e("debug : coucou1",""+success);
             retour.put("success",Integer.toString(success));
             if(success==1){
-                Log.e("debug : coucou","x");
                 retour.put("Id",jObject.getString("id"));
                 retour.put("Age",jObject.getString("age"));
                 retour.put("Sexe",jObject.getString("sexe"));
                 retour.put("Dist",jObject.getString("dist"));
-                Log.e("debug : coucou",jObject.getString("id"));
             }
 
             return retour;

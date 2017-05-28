@@ -4,9 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,18 +63,22 @@ public class Messages extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int pos, long row) {
         Intent in = new Intent(getActivity(),MessageClass.class);
-        Log.e("info",l.getItemAtPosition(pos).toString());
+       // Log.e("info",l.getItemAtPosition(pos).toString());
         // compilation de la regex
         Pattern pt = Pattern.compile(".*sexe=(\\d*)[ |,|}].*id=(\\d*)[ |,|}].*pseudo=(.*),.*");
         // création d'un moteur de recherche
         Matcher ma = pt.matcher(l.getItemAtPosition(pos).toString());
-        // lancement de la recherche de toutes les occurrences
-        boolean b = ma.matches();
 
         in.putExtra("ID_RECEP",ma.group(2));
         in.putExtra("SEXE",ma.group(1));
         in.putExtra("LOGIN",ma.group(3));
         in.putExtra("ID_EMET",user.getId());
+        startActivity(in);
+
+
+
+
+
         /*
         //pseudo du recepteur pour l'afficher
         String m[]=l.getItemAtPosition(pos).toString().split("pseudo=");
@@ -93,7 +95,6 @@ public class Messages extends ListFragment {
         in.putExtra("ID_RECEP",p[0]);
         // id de l'emetteur
         in.putExtra("ID_EMET",user.getId()); */
-        startActivity(in);
 
     }
 }

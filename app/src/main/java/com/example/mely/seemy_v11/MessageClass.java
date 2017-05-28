@@ -3,7 +3,6 @@ package com.example.mely.seemy_v11;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Button;
@@ -76,7 +75,7 @@ public class MessageClass  extends AppCompatActivity{
             public void onClick(View arg0) {
                 try {
                     receivChatMessage();
-                    Toast.makeText(getBaseContext(), "Discussion à jour", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(),R.string.majdiscussion, Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -107,7 +106,6 @@ public class MessageClass  extends AppCompatActivity{
 
         if (M.size()>0)
             for(ChatMessage m : M){
-                Log.e("Message recu",m.getMessage());
                 adp.add(m);
             }
 

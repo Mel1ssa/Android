@@ -50,7 +50,7 @@ public class SignupActivity extends AppCompatActivity {
                             getSystemService(Context.CONNECTIVITY_SERVICE);
                     NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
                     if (networkInfo == null || !networkInfo.isConnected()) {
-                        Toast.makeText(getBaseContext(),"Pas de connexion internet", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(),R.string.noconnexion, Toast.LENGTH_LONG).show();
                         return;
                     }
                     signup();
@@ -75,7 +75,7 @@ public class SignupActivity extends AppCompatActivity {
     public void signup() throws ExecutionException, InterruptedException {
         //on verifie la validité des infos
         if (!validate()) {
-            Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), R.string.echecsignup, Toast.LENGTH_LONG).show();
             _signupButton.setEnabled(true);
             return;
         }
@@ -84,7 +84,7 @@ public class SignupActivity extends AppCompatActivity {
         //barre de progression en attendant la création dans la bd
         final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this, R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Création du compte...");
+        progressDialog.setMessage(getText(R.string.createacount));
         progressDialog.show();
         progressDialog.dismiss();
 
@@ -105,17 +105,17 @@ public class SignupActivity extends AppCompatActivity {
         String S = (String) AT.get();
         switch(Integer.parseInt(S)){
             case 0:
-                Toast.makeText(getBaseContext(), "Erreur lors de la création en bd", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), R.string.errorBD, Toast.LENGTH_LONG).show();
 
                 break;
             case 1:
-                Toast.makeText(getBaseContext(), "Vous pouvez vous connecter !...", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), R.string.connectOK, Toast.LENGTH_LONG).show();
                 break;
             case 2:
                 Toast.makeText(getBaseContext(), getText(R.string.existe), Toast.LENGTH_LONG).show();
                 break;
             case 3:
-                Toast.makeText(getBaseContext(), "Parametre manquant", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), R.string.missingparam, Toast.LENGTH_LONG).show();
                 break;
         }
         new android.os.Handler().postDelayed(
@@ -144,14 +144,14 @@ public class SignupActivity extends AppCompatActivity {
         String age = _age.getText().toString();
 
         if (name.isEmpty() || name.length() < 3) {
-            _nameText.setError("at least 3 characters");
+            _nameText.setError(getText(R.string.errorValue));
             valid = false;
         } else {
             _nameText.setError(null);
         }
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("enter a valid email address");
+            _emailText.setError(getText(R.string.novalidadd));
             valid = false;
         } else {
             _emailText.setError(null);
@@ -160,14 +160,14 @@ public class SignupActivity extends AppCompatActivity {
 
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("between 4 and 10 alphanumeric characters");
+            _passwordText.setError(getText(R.string.errorValue));
             valid = false;
         } else {
             _passwordText.setError(null);
         }
 
         if (reEnterPassword.isEmpty() || reEnterPassword.length() < 4 || reEnterPassword.length() > 10 || !(reEnterPassword.equals(password))) {
-            _reEnterPasswordText.setError("Password Do not match");
+            _reEnterPasswordText.setError(getText(R.string.passnotmatch));
             valid = false;
         } else {
             _reEnterPasswordText.setError(null);

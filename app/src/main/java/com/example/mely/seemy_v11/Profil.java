@@ -15,7 +15,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -137,10 +136,10 @@ public class Profil extends Fragment implements View.OnClickListener {
 
         //ouvre une fenetre pour rajouter un tag
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Ajouter des tags");
+        builder.setTitle(R.string.addtags);
         builder.setView(subView);
-        builder.setPositiveButton("Ajouter", null);
-        builder.setNegativeButton("Fermer", null);
+        builder.setPositiveButton(R.string.add, null);
+        builder.setNegativeButton(R.string.close, null);
         final AlertDialog alertDialog = builder.create();
 
         alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
@@ -162,7 +161,7 @@ public class Profil extends Fragment implements View.OnClickListener {
                             }
 
                         } catch (Exception e) {
-                            Toast.makeText(getActivity(), "erreur : " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), R.string.error+ e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -234,8 +233,7 @@ public class Profil extends Fragment implements View.OnClickListener {
         final ArrayList itemsSelected = new ArrayList();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Choisissez les tags à supprimer: ");
-        Log.e("testitem","debug1 taille item ="+items.length);
+        builder.setTitle(R.string.supptagdialog);
         builder.setMultiChoiceItems(items, null,
                 new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
@@ -250,23 +248,23 @@ public class Profil extends Fragment implements View.OnClickListener {
                         }
                     }
 
-        }).setPositiveButton("Supprimer", new DialogInterface.OnClickListener() {
+        }).setPositiveButton(R.string.supp, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 //maj de la base de donnée
 
                    for(int i=0;i<itemsSelected.size();i++){
-                       Log.e("item g", (String) items[(int) itemsSelected.get(i)]);
+
                        AsyncTask AT = new UpdateProfilBackground(getActivity()).execute("SuppTag", user.getId(), (String) items[(int) itemsSelected.get(i)]);
                        user.remove_Tag((String) items[(int) itemsSelected.get(i)]);
 
                    }
                 setTags();
-                Toast.makeText(getActivity(),"Elements supprimés",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),R.string.deleteelem,Toast.LENGTH_SHORT).show();
 
 
             }
-        }).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             // ne fait rien si on annule
             @Override
             public void onClick(DialogInterface dialog, int which) {}
