@@ -36,7 +36,7 @@ public class MessageBackground extends AsyncTask {
                 String emetteur = (String) objects[1];
                 String recepteur = (String) objects[2];
                 String message = (String) objects[3];
-                message=message.replace(" ","+");
+                message=message.replace(" ","+");// pour pas avoir d'espace dans le lien
                 String link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/envoi_message.php?id_emetteur=" + emetteur + "&id_recepteur=" + recepteur + "&message=" + message;
 
                 try {
@@ -86,7 +86,7 @@ public class MessageBackground extends AsyncTask {
                     StringBuffer sb = new StringBuffer("");
                     String line = "";
 
-                    line = in.readLine();// pour supprimer les db_conf en attendant de trouver mieux
+                    line = in.readLine();//supprimer l'entete du fichier php généré
 
 
                     while ((line = in.readLine()) != null) {
@@ -107,7 +107,6 @@ public class MessageBackground extends AsyncTask {
                             String mess= m.getString("Contenu_message");
                             boolean prov= m.getBoolean("Orientation");
                             ChatMessage M = new ChatMessage(prov,mess);
-                            liste_messages.add(M);
 
                         }
 
@@ -154,17 +153,20 @@ public class MessageBackground extends AsyncTask {
                             JSONObject obj= user.getJSONObject(i);
                             ret.put("id",obj.getString("id_utilisateur"));
                             ret.put("dernier_msg",obj.getString("dernier_msg"));
+
                             ret.put("pseudo",obj.getString("pseudo"));
                             if(obj.getString("sexe").equals("H"))
                                 ret.put("sexe",R.drawable.user_male);
                             else
                                 ret.put("sexe",R.drawable.user_female);
+
                             liste.add(ret);
                         }
+
                         return liste;
                     }
-                    else
-                        return liste;
+                    else{
+                        return liste;}
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

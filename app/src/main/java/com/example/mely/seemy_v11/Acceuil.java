@@ -4,22 +4,18 @@ package com.example.mely.seemy_v11;
  * Created by MELY on 4/17/2017.
  */
 import android.annotation.SuppressLint;
-import android.content.ClipData;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 import org.w3c.dom.Text;
 
@@ -85,7 +81,7 @@ public class Acceuil extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int pos, long row) {
         Intent in = new Intent(getActivity(),MessageClass.class);
-      // Log.e("acceuil log",l.getItemAtPosition(pos).toString());
+
 
         // compilation de la regex
         Pattern pt = Pattern.compile(".*Id=(\\d*)[ |,|}].*Sexe=(\\d*)[ |,|}].*Pseudo=(.*)[ |,|}]");

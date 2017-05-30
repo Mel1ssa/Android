@@ -3,6 +3,7 @@ package com.example.mely.seemy_v11;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Button;
@@ -93,6 +94,7 @@ public class MessageClass  extends AppCompatActivity{
 
     private boolean sendChatMessage(){
         adp.add(new ChatMessage(side, chatText.getText().toString()));
+
         AsyncTask AT2=  new MessageBackground(this).execute("envoie",id_emet,id_recep, chatText.getText().toString());
 
         chatText.setText("");// raz du champs de text
@@ -103,11 +105,13 @@ public class MessageClass  extends AppCompatActivity{
 
         AsyncTask AT2=  new MessageBackground(this).execute("recup",id_emet,id_recep);
         ArrayList<ChatMessage> M =  (ArrayList<ChatMessage>) AT2.get();
+        adp = new ChatArrayAdapter(getApplicationContext(), R.layout.chat_row); // réinitialise la liste
 
         if (M.size()>0)
             for(ChatMessage m : M){
                 adp.add(m);
             }
+
 
         return true;
     }

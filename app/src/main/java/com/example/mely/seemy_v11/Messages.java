@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +45,7 @@ public class Messages extends ListFragment {
             e.printStackTrace();
         }
 
+
         // Clés utilisées dans la  Hashmap ( InfoProfilBackground)
         String[] from = {"pseudo", "sexe","id","dernier_msg"};
 
@@ -64,14 +65,13 @@ public class Messages extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int pos, long row) {
         Intent in = new Intent(getActivity(),MessageClass.class);
-        //Log.e("info",l.getItemAtPosition(pos).toString());
         // compilation de la regex
         Pattern pt = Pattern.compile(".*sexe=(\\d*)[ |,|}].*id=(\\d*)[ |,|}].*pseudo=(.*), .*");
         // création d'un moteur de recherche
         Matcher ma = pt.matcher(l.getItemAtPosition(pos).toString());
         boolean b = ma.matches();
         in.putExtra("ID_RECEP",ma.group(2));
-        if (ma.group(1).equals("2130837634"))
+        if (ma.group(1).equals("2130837634")) // id de l'image
             in.putExtra("SEXE","H");
         else
             in.putExtra("SEXE","F");
