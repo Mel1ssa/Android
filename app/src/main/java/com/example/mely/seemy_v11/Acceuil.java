@@ -58,7 +58,7 @@ public class Acceuil extends ListFragment {
                     AsyncTask AT2 = new InfoProfilBackgroundActivity(getActivity()).execute(id); // recup les tags
                     String S2 = (String) AT2.get();
                     S2 = S2.replace(" ", " #"); // affiche le # car en bd le tag ne possède pas de #
-                    usrs.put("Tags", S2);
+                    usrs.put("Tags", "#"+S2);
                     userList.add(usrs);
                 }
             }
@@ -85,14 +85,18 @@ public class Acceuil extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int pos, long row) {
         Intent in = new Intent(getActivity(),MessageClass.class);
+      // Log.e("acceuil log",l.getItemAtPosition(pos).toString());
 
         // compilation de la regex
         Pattern pt = Pattern.compile(".*Id=(\\d*)[ |,|}].*Sexe=(\\d*)[ |,|}].*Pseudo=(.*)[ |,|}]");
         // création d'un moteur de recherche
         Matcher ma = pt.matcher(l.getItemAtPosition(pos).toString());
-
+        boolean b = ma.matches();
         in.putExtra("ID_RECEP",ma.group(1));
-        in.putExtra("SEXE",ma.group(2));
+        if (ma.group(2).equals("2130837634"))
+            in.putExtra("SEXE","H");
+        else
+            in.putExtra("SEXE","F");
         in.putExtra("LOGIN",ma.group(3));
         in.putExtra("ID_EMET",user.getId());
         startActivity(in);

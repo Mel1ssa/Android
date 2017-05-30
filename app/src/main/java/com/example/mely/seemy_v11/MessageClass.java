@@ -51,7 +51,7 @@ public class MessageClass  extends AppCompatActivity{
         ref = (ImageButton)findViewById(R.id.refresh_msg);
         im_sexe = (ImageView)findViewById(R.id.user_profile_photo);
         if(sexe!=null){
-            if(sexe.equals("2130837634") || sexe.equals("2130837633"))
+            if(sexe.equals("H"))
                 im_sexe.setImageResource(R.drawable.user_male);
             else
                 im_sexe.setImageResource(R.drawable.user_female);
