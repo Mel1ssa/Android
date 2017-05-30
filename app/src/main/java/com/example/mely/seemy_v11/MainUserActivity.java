@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.support.v4.app.Fragment;
@@ -185,15 +186,17 @@ public class MainUserActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 200);
 
         }
-
             location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if(location==null){
+                location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);}
             latitude = String.valueOf(location.getLatitude());
+
             longitude = String.valueOf(location.getLongitude());
             altitude = String.valueOf(location.getAltitude());
 
             //envoie des données a la base
             AsyncTask AT = new UpdateProfilBackground(this).execute("Localisation", user.getId(), longitude, latitude, altitude);
-            String S = (String) AT.get();
+
 
 
 
