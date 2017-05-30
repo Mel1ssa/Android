@@ -13,7 +13,7 @@ public class Utilisateur implements Serializable {
     private String Sexe;
     private String Age;
     private String Dist;
-    private ArrayList<String> Tags;
+    private ArrayList<String> Tags= new ArrayList<String>();
 
     public  Utilisateur(String Id, String Pseudo, String Sexe, String Age, String Dist){
         this.Id=Id;
