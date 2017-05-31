@@ -31,8 +31,7 @@ public class LoginBackgroundActivity extends AsyncTask {
         String username = (String) objects[0];
         String password = (String) objects[1];
         Map<String, String> retour = new HashMap<String, String>();
-
-        //String link = "http://10.127.209.87/android/auth.php?Pseudo="+username+"&MotDePasse="+password;
+        //lien vers  le script
         String link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/auth_PDO.php?Pseudo="+username+"&MotDePasse="+password;
 
         try {
@@ -45,7 +44,7 @@ public class LoginBackgroundActivity extends AsyncTask {
             BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             StringBuffer sb = new StringBuffer("");
             String line="";
-            line = in.readLine();// pour supprimer les db_conf en attendant de trouver mieux
+            line = in.readLine();// lit la première ligne du php car ne nous interesse pas
 
 
             while ((line = in.readLine()) != null) {

@@ -39,12 +39,7 @@ public class Profil extends Fragment implements View.OnClickListener {
         this.user=user;
 
     }
-    private static int RESULT_LOAD_IMG = 1;
-    String imgDecodableString;
-    @Bind(R.id.user_profile_photo)ImageButton _profileImg;
-    @Bind(R.id.btn_add_distance)Button _addDistance;
 
-    @Bind(R.id.btn_add_tags)Button _addTags;
     TextView edt_tags;
     String select;
     @Override
@@ -81,11 +76,8 @@ public class Profil extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
 
         switch (view.getId()) {
-            case R.id.user_profile_photo:
-                loadImagefromGallery(this.getView());
-                break;
             case R.id.btn_add_tags:
-                this.openDialog();
+                this.openTagDialog();
                 break;
             case R.id.btn_add_distance:
                 this.openCheckDistance();
@@ -96,29 +88,7 @@ public class Profil extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void loadImagefromGallery(View view) {
-        Profil.this.startActivityForResult(
-                new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI),
-                RESULT_LOAD_IMG);
-    }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        super.onActivityResult(requestCode, resultCode, data);
-        //Detects request codes
-        if (requestCode == RESULT_LOAD_IMG && resultCode == Activity.RESULT_OK) {
-            Uri selectedImage = data.getData();
-            Bitmap bitmap = null;
-            // Set the Image in ImageView after decoding the String
-            _profileImg.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
-        }
-        else{
-           //Fragment fragment = new Messages();
-            }
-
-
-    }
     private void setTags(){
         if(user.getTags()!=null) {
             String t="";
@@ -129,7 +99,7 @@ public class Profil extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void openDialog(){
+    private void openTagDialog(){
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View subView = inflater.inflate(R.layout.listeview_tags, null);
         final EditText _tag = (EditText)subView.findViewById(R.id.EditTag);
@@ -152,7 +122,7 @@ public class Profil extends Fragment implements View.OnClickListener {
                     public void onClick(View view) {
                         try {
                             if (!_tag.getText().toString().equals("")) {
-                                edt_tags.append(" #" + _tag.getText().toString());
+                                edt_tags.append(" #" + _tag.getText().toString()); // affichage du tag+ #
                                 //Ajoute le tag a la bd
                                 AsyncTask AT = new UpdateProfilBackground(getActivity()).execute( "Tag",user.getId(), _tag.getText().toString());
                                 user.add_Tag(_tag.getText().toString());
@@ -185,7 +155,7 @@ public class Profil extends Fragment implements View.OnClickListener {
         final ArrayList itemsSelected = new ArrayList();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Définisseez le périmètre de recherche (en mètre): ");
+        builder.setTitle(R.string.reglerdistance);
 
         builder.setSingleChoiceItems(items,-1,  new DialogInterface.OnClickListener(){
             @Override
@@ -193,7 +163,7 @@ public class Profil extends Fragment implements View.OnClickListener {
                 select= (String) items[selected];
 
             }
-        }).setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+        }).setPositiveButton(R.string.valider, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 //maj de la base de donnée
@@ -207,7 +177,7 @@ public class Profil extends Fragment implements View.OnClickListener {
                 }
 
             }
-        }).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             // ne fait rien si on annule
             @Override
             public void onClick(DialogInterface dialog, int which) {}

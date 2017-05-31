@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.support.v4.app.Fragment;
@@ -101,7 +100,6 @@ public class MainUserActivity extends AppCompatActivity {
                 fragment = new Acceuil(user);
                 break;
             case 1:
-                //   Toast.makeText(this.getBaseContext(),user.toString(),Toast.LENGTH_SHORT).show();
                 fragment = new Profil(user);
                 break;
             case 2:
@@ -179,7 +177,7 @@ public class MainUserActivity extends AppCompatActivity {
         String latitude, longitude, altitude;
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        //vérifie qu'on a accès au gps
+        //vérifier qu'on a accès au gps
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             Toast.makeText(getBaseContext(),R.string.nopositionaccess, Toast.LENGTH_LONG).show();
@@ -187,7 +185,7 @@ public class MainUserActivity extends AppCompatActivity {
 
         }
             location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if(location==null){
+            if(location==null){ // si gps provider ne fonctionne pas utiliser le network
                 location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);}
             latitude = String.valueOf(location.getLatitude());
 

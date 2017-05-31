@@ -42,7 +42,7 @@ public class SignupBackgroundActivity extends AsyncTask {
             BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             StringBuffer sb = new StringBuffer("");
             String line="";
-            line = in.readLine();// pour supprimer les db_conf en attendant de trouver mieux
+            line = in.readLine();// pour supprimer l'entete php su script
 
             while ((line = in.readLine()) != null) {
                 sb.append(line);

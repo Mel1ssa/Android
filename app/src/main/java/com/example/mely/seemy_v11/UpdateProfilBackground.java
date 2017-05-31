@@ -32,10 +32,10 @@ public class UpdateProfilBackground extends AsyncTask {
     protected Object doInBackground(Object[] objects) {
         String cas = (String) objects[0];
         String username = (String) objects[1];
-
+        //On utilise un switch car on effectues plusieurs sortes d'opération pour le parametrage du profil
 
         switch (cas) {
-            case "Tag":
+            case "Tag": // insertion
                 String id= (String) objects[1];
                 String tag = (String) objects[2];
                 String link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/insert_tag_PDO.php?Id=" + id + "&Contenu_tag=" + tag;
@@ -56,15 +56,18 @@ public class UpdateProfilBackground extends AsyncTask {
 
                     }
                     String res = sb.toString();
-                    //verif if success !
                     in.close();
-                    return res;
+                    //JSON Parsing
+                    JSONObject jObject = new JSONObject(res);
+                    int success = jObject.getInt("success");
+                   // if(success==1)
+                        return res;
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
-            case "SuppTag":
+            case "SuppTag": // suppression
                 id= (String) objects[1];
                 tag = (String) objects[2];
                 link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/delete_tag_PDO.php?id=" + id + "&tag=" + tag;
@@ -85,15 +88,19 @@ public class UpdateProfilBackground extends AsyncTask {
 
                     }
                     String res = sb.toString();
-                    //verif if success !
+
                     in.close();
-                    return res;
+                    //JSON Parsing
+                    JSONObject jObject = new JSONObject(res);
+                    int success = jObject.getInt("success");
+                    // if(success==1)
+                        return res;
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
-            case "Distance":
+            case "Distance": // met a jour la distance
                 id= (String) objects[1];
                 String distance = (String) objects[2];
                 link="http://nicolasdke.cluster023.hosting.ovh.net/seemy/UpdateDistance_PDO.php?Id="+id+"&Distance_param="+Integer.parseInt(distance);
@@ -114,7 +121,11 @@ public class UpdateProfilBackground extends AsyncTask {
                     }
                     String res = sb.toString();
                     in.close();
-                    return res;
+                    //JSON Parsing
+                    JSONObject jObject = new JSONObject(res);
+                    int success = jObject.getInt("success");
+                    // if(success==1)
+                        return res;
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -152,7 +163,7 @@ public class UpdateProfilBackground extends AsyncTask {
                     e.printStackTrace();
                 }
                 break;
-            case "Recherche":
+            case "Recherche": // recherche les utilisateurs autour
                 link = "http://nicolasdke.cluster023.hosting.ovh.net/seemy/GetUsersByDistance_PDO.php?Id=" + objects[1];
                 try {
                     URL url = new URL(link);

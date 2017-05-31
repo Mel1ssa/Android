@@ -3,7 +3,6 @@ package com.example.mely.seemy_v11;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Button;
@@ -13,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -35,6 +33,7 @@ public class MessageClass  extends AppCompatActivity{
     String id_emet;
     String sexe;
     @Override
+    // activité qui affiche la fenetre de discussion
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);

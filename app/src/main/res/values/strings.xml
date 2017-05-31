@@ -55,6 +55,8 @@
     <string name="missingparam">Parametre manquant</string>
     <string name="novalidadd">Entrez une adresse mail valide</string>
     <string name="passnotmatch">Mots de passe ne correspondent pas</string>
+    <string name="reglerdistance">Définisseez le périmètre de recherche (en mètre):</string>
+    <string name="valider">Valider</string>
 
     <string-array name="navigation_items">
         <item>Acceuil</item>

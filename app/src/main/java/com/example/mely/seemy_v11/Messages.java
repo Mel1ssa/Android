@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +34,7 @@ public class Messages extends ListFragment {
         List<Map<String, Object>> userList = new ArrayList<Map<String, Object>>();
 
         try {
-            AsyncTask AT = new MessageBackground(getActivity()).execute("discussion", user.getId()); // recup les users aux alentours
+            AsyncTask AT = new MessageBackground(getActivity()).execute("discussion", user.getId()); // recup les discussions existantes
             userList = (ArrayList<Map<String, Object>> ) AT.get();
 
 
@@ -46,7 +44,7 @@ public class Messages extends ListFragment {
         }
 
 
-        // Clés utilisées dans la  Hashmap ( InfoProfilBackground)
+        // Clés utilisées dans la  Hashmap
         String[] from = {"pseudo", "sexe","id","dernier_msg"};
 
         // les items dans lequels les valeurs de hashmap seront placés
@@ -67,9 +65,10 @@ public class Messages extends ListFragment {
         Intent in = new Intent(getActivity(),MessageClass.class);
         // compilation de la regex
         Pattern pt = Pattern.compile(".*sexe=(\\d*)[ |,|}].*id=(\\d*)[ |,|}].*pseudo=(.*), .*");
-        // création d'un moteur de recherche
+        //matcher avec les informations qui se trouve dan sla liste et à cette position (pos)
         Matcher ma = pt.matcher(l.getItemAtPosition(pos).toString());
         boolean b = ma.matches();
+
         in.putExtra("ID_RECEP",ma.group(2));
         if (ma.group(1).equals("2130837634")) // id de l'image
             in.putExtra("SEXE","H");

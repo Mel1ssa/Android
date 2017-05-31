@@ -48,10 +48,11 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage>{
 		   }
 
 		  layout = (LinearLayout)v.findViewById(R.id.Message1);
-		  ChatMessage messageobj = getItem(position);
+		  ChatMessage messageobj = getItem(position); // recup du message
 		  chatText =(TextView)v.findViewById(R.id.SingleMessage);
-		  chatText.setText(messageobj.message);
-		  chatText.setBackgroundResource(messageobj.side ? R.drawable.bulle_b :R.drawable.bulle_a);
+
+		  chatText.setText(messageobj.message); // affichage dans la liste
+		  chatText.setBackgroundResource(messageobj.side ? R.drawable.bulle_b :R.drawable.bulle_a); // choisi la bulle selon si l'utilisateur courant est emetteur ou recepteur
 		  layout.setGravity(messageobj.side?Gravity.LEFT:Gravity.RIGHT);
 
 		  return v;

@@ -2,14 +2,12 @@ package com.example.mely.seemy_v11;
 
 import android.content.Context;
 import android.os.AsyncTask;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
@@ -17,8 +15,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import static android.os.Build.VERSION_CODES.M;
 
 /**
  * Created by MELY on 5/24/2017.
@@ -31,6 +27,7 @@ public class MessageBackground extends AsyncTask {
     @Override
     protected Object doInBackground(Object[] objects) {
         String cas = (String) objects[0];
+        // utilisation d'un sxitch car nous avons trois sortes d'operations a effectuer sur les messages (envoie msg, recup msg, recup discussion)
         switch (cas) {
             case "envoie":
                 String emetteur = (String) objects[1];
@@ -51,7 +48,7 @@ public class MessageBackground extends AsyncTask {
                     StringBuffer sb = new StringBuffer("");
                     String line = "";
 
-                    line = in.readLine();// pour supprimer les db_conf en attendant de trouver mieux
+                    line = in.readLine();// pour supprimer la 1ere ligne du script (ne sert a rien)
 
 
                     while ((line = in.readLine()) != null) {

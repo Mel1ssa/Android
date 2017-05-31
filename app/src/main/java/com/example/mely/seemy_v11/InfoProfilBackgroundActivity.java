@@ -29,7 +29,7 @@ public class InfoProfilBackgroundActivity extends AsyncTask {
     protected String doInBackground(Object[] objects) {
 
         String Id = (String) objects[0];
-        String link ="http://nicolasdke.cluster023.hosting.ovh.net/seemy/get_user_tag_PDO.php?Id="+Id;
+        String link ="http://nicolasdke.cluster023.hosting.ovh.net/seemy/get_user_tag_PDO.php?Id="+Id; // appel le script de récup php
 
         try {
             URL url = new URL(link);

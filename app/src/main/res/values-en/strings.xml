@@ -55,7 +55,8 @@
     <string name="missingparam">Parametere missing</string>
     <string name="novalidadd">enter a valid email address</string>
     <string name="passnotmatch">Password Do not match</string>
-
+    <string name="reglerdistance">Define the search scope (in meters):</string>
+    <string name="valider">Validate</string>
 
 
     <string-array name="navigation_items">

@@ -1,14 +1,13 @@
 package com.example.mely.seemy_v11;
 
-import android.util.Log;
 
 public class ChatMessage {
 
 	
-	public boolean side;
+	public boolean side; //vrai si emetteur , faux sinon
 	public String message;
 
-	public boolean isSide() {
+	public boolean getSide() {
 		return side;
 	}
 

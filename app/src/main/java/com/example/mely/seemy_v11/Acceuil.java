@@ -15,10 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +49,7 @@ public class Acceuil extends ListFragment {
                 if (Integer.parseInt((String) usrs.get("success")) == 1) {
                     AsyncTask AT2 = new InfoProfilBackgroundActivity(getActivity()).execute(id); // recup les tags
                     String S2 = (String) AT2.get();
-                    S2 = S2.replace(" ", " #"); // affiche le # car en bd le tag ne possède pas de #
+                    S2 = S2.replace(" ", " #"); // affiche le # car en bd le tag ne possèdent pas de #
                     usrs.put("Tags", "#"+S2);
                     userList.add(usrs);
                 }
@@ -80,44 +76,23 @@ public class Acceuil extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int pos, long row) {
+        //intent vers MessageClasse qui va afficher tous les messages
         Intent in = new Intent(getActivity(),MessageClass.class);
-
 
         // compilation de la regex
         Pattern pt = Pattern.compile(".*Id=(\\d*)[ |,|}].*Sexe=(\\d*)[ |,|}].*Pseudo=(.*)[ |,|}]");
-        // création d'un moteur de recherche
+        // recherche dan sles infos affichés dans la liste
         Matcher ma = pt.matcher(l.getItemAtPosition(pos).toString());
         boolean b = ma.matches();
+
         in.putExtra("ID_RECEP",ma.group(1));
-        if (ma.group(2).equals("2130837634"))
+        if (ma.group(2).equals("2130837634")) // id de la photo de profil user_male
             in.putExtra("SEXE","H");
         else
             in.putExtra("SEXE","F");
         in.putExtra("LOGIN",ma.group(3));
         in.putExtra("ID_EMET",user.getId());
         startActivity(in);
-      /* si ç ane marche pas
-
-        //pseudo du recepteur pour l'afficher
-        String m[]=l.getItemAtPosition(pos).toString().split("Pseudo=");
-        String p[]= m[1].split(",");
-
-        in.putExtra("LOGIN",p[0]);
-
-        //id du recepteur pour la requete sql
-        String  n[] =l.getItemAtPosition(pos).toString().split("Id=");
-         p= n[1].split(",");
-        in.putExtra("ID_RECEP",p[0]);
-        // id de l'emetteur
-        in.putExtra("ID_EMET",user.getId());
-
-        //sexe
-        n =l.getItemAtPosition(pos).toString().split("Sexe=");
-        p= n[1].split(",");
-        in.putExtra("SEXE",p[0]);
-        */
-
-
     }
 
 }
